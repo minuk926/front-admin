@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+dist/
+*.iml
+yarn.lock
+package.json.lock
