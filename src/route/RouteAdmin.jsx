@@ -8,12 +8,11 @@ import Links from "./Links";
 export default function RouteAdmin() {
 	return (
 		<BrowserRouter>
-			<Links/>
 			<Switch>
 				<Route path="/login" component={Login}/>
 				<Route path="/sign-in" component={SignIn}/>
 				<Route path="/sign-up" component={SignUp}/>
-				<Route path="/" exact component={Login}/>
+				<Route path="/" exact component={Links}/>
 				<Route component={NotFound}/>
 			</Switch>
 		</BrowserRouter>
