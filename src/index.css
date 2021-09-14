@@ -2,3 +2,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.links{
+
+}
+
+.links ul {
+}
+
+.links li {
+	@apply font-bold py-2 transition transform hover:text-purple-500  hover:-translate-x-1;
+}
+.links p{
+	@apply font-normal text-sm;
+}
+
+.links h2{
+	@apply text-2xl mb-5 font-bold;
+}
+
+.links .set{
+	@apply  pt-5 flex-1 border-solid border-l-2 pl-5 border-gray-200 hover:bg-gray-100 transition;
+}
+
+.tag {
+	@apply  h-3 w-3 ml-2 mb-2;
+}
+.pong1 {
+	@apply  animate-ping absolute inline-flex h-2 w-2 rounded-full bg-purple-400 opacity-75 mt-2.5;
+}
+.pong2 {
+	@apply  relative inline-flex rounded-full h-2 w-2 bg-purple-500;
+
+}
