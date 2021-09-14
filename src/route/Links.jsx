@@ -1,61 +1,77 @@
 import {NavLink} from "react-router-dom";
 
-export default function Links(){
+export default function Links() {
 	return (
 
 		<body className="m-20 text-left">
 		code test area
 
-		<div className="p-10 mb-10 w-full h20 bg-gray-100 hover:bg-gray-200 transition">
-			<div className="">sample text</div>
+		<div className="p-10 mb-10 w-full bg-gray-100 hover:bg-gray-200 transition">
+
+			<span className="float-left mr-2">
+				<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+				</svg>
+			</span>
+
+			<div className="">Sample text1 화이팅</div>
+
 		</div>
 
 		<div className="links flex space-x-0">
 
 			<div className="set">
-			<h2>회원</h2>
+				<h2>회원</h2>
 
-			<ul >
-				<li className=""><NavLink to="/login">Login<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>로그인</p></NavLink></li>
-				<li><NavLink to="/sign-in">Sign-in <p>아이디 로그인<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span></p></NavLink></li>
-				<li><NavLink to="/sign-up">Sign-up <p>회원가입<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span></p></NavLink></li>
+				<ul>
+					<li className=""><NavLink to="/login">Login<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>로그인</p></NavLink>
+					</li>
+					<li><NavLink to="/sign-in">Sign-In<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>아이디 로그인</p></NavLink></li>
+					<li><NavLink to="/sign-up">Sign-Up<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원가입</p></NavLink></li>
 
-				<li><NavLink to="">name<p>아이디찾기</p></NavLink></li>
-				<li><NavLink to="">name<p>회원가입완료</p></NavLink></li>
-				<li><NavLink to="">name<p>아이디찾기 결과</p></NavLink></li>
-				<li><NavLink to="">name<p>아이디찾기 결과실패</p></NavLink></li>
-				<li><NavLink to="">name<p>비밀번호 찾기</p></NavLink></li>
-				<li><NavLink to="">name<p>비밀번호 찾기 결과</p></NavLink></li>
-				<li><NavLink to="">name<p>비밀번호 찾기 결과실패</p></NavLink></li>
-				<li><NavLink to="">name <p>회원정보수정</p></NavLink></li>
-			</ul>
+					<li><NavLink to="/sign-up-complete">SignUPComplete<p>회원가입완료</p></NavLink></li>
+
+					<li><NavLink to="">FindID<p>아이디찾기</p></NavLink></li>
+					<li><NavLink to="">FindID-Result<p>아이디찾기 결과</p></NavLink></li>
+					<li><NavLink to="">FindID-Fail<p>아이디찾기 결과실패</p></NavLink></li>
+					<li><NavLink to="">FindPW<p>비밀번호 찾기</p></NavLink></li>
+					<li><NavLink to="">FindPW-Result<p>비밀번호 찾기 결과</p></NavLink></li>
+					<li><NavLink to="">FindPW-Fail<p>비밀번호 찾기 결과실패</p></NavLink></li>
+
+					<li><NavLink to="">MemberModify<p>회원정보수정</p></NavLink></li>
+
+				</ul>
 			</div>
 
 			<div className="set">
-				<h2>title</h2>
+				<h2>게시판</h2>
 				<ul>
-					<li><NavLink to="">name <p>title</p></NavLink></li>
+					<li><NavLink to="">List <p>List</p></NavLink></li>
+					<li><NavLink to="">View <p>View</p></NavLink></li>
+					<li><NavLink to="">Modify <p>Modify</p></NavLink></li>
+					<li><NavLink to="">. <p>.</p></NavLink></li>
+					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
 			</div>
 
 			<div className="set">
 				<h2>title</h2>
 				<ul>
-					<li><NavLink to="">name <p>title</p></NavLink></li>
+					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
 			</div>
 
 			<div className="set">
 				<h2>title</h2>
 				<ul className="links">
-					<li><NavLink to="">name <p>title</p></NavLink></li>
+					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
 			</div>
 
 			<div className="set">
 				<h2>title</h2>
 				<ul className="links">
-					<li><NavLink to="">name <p>title</p></NavLink></li>
+					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
 			</div>
 		</div>
