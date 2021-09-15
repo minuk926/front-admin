@@ -20,14 +20,16 @@ export default function JoinForm() {
 		}
 	}
 
-	function phoneCheck(e){
+	function phoneCheck(){
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
 		if(!regExpId.test(document.querySelector('#tel').value)){
 			document.querySelector('#spanTelValid').style = 'display';
+			return false;
 		}else{
 			document.querySelector('#spanTelValid').style['display'] = 'none';
 		}
+		return true;
 	}
 
 	const onPasswordChange = (e) => {
@@ -43,7 +45,9 @@ export default function JoinForm() {
 	const saveJoin = (e) => {
 		e.preventDefault();
 		if(!passwordCheck()) return false;
-		console.log(`password=[${password}], password2=[${password2}]`)
+		if(!phoneCheck())	return false;
+
+		//console.log(`password=[${password}], password2=[${password2}]`)
 		if(password !== password2) {
 			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
 		}
