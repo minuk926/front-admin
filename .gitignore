@@ -25,4 +25,4 @@ yarn-error.log*
 dist/
 *.iml
 yarn.lock
-package.json.lock
+package-lock.json

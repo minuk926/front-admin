@@ -1,5 +1,6 @@
-import {Fragment, useRef, useState} from 'react'
-import {Dialog, Transition} from '@headlessui/react'
+import {Fragment, useRef, useState} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
+import sign from "../../components/sign.js";
 
 export default function SignUp() {
 	const [open, setOpen] = useState(false)
