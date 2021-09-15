@@ -30,15 +30,26 @@ export default function JoinForm() {
 		}
 	}
 
-	const onPasswordHandler = (e) => {
+	const onPasswordChange = (e) => {
+		console.log(e.target.value);
 		setPassword(e.target.value);
 	}
 
-	const onConfirmPasswordHandler = (e) => {
+	const onPassword2Change = (e) => {
 		setPassword2(e.target.value);
 	}
 
-	function passwordCheck(e){
+
+	const saveJoin = (e) => {
+		e.preventDefault();
+		if(!passwordCheck()) return false;
+		console.log(`password=[${password}], password2=[${password2}]`)
+		if(password !== password2) {
+			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
+		}
+	}
+
+	function passwordCheck(){
 		// 숫자, 영문만 입력 가능
 		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
 		const id = document.querySelector('#id').value;
@@ -53,27 +64,15 @@ export default function JoinForm() {
 		}
 
 		if(/(\w)\1\1\1/.test(password)){
-
 			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
-
 			return false;
-
 		}
 
 		if(password.search(id) > -1){
-
 			alert("비밀번호에 아이디가 포함되었습니다.");
-
 			return false;
-
 		}
-	}
-
-	const onSubmit = (e) => {
-		e.preventDefault()
-		if(password !== password2) {
-			return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
-		}
+		return true;
 	}
 
 	return (
@@ -88,7 +87,7 @@ export default function JoinForm() {
 						가입을 위한 정보를 입력하세요.
 					</p>
 				</div>
-				<form className="mt-8 space-y-6" action="#" method="POST">
+				<form className="mt-8 space-y-6">
 					<input type="hidden" name="remember" value="true"/>
 					<div className="space-y-6">
 
@@ -126,14 +125,14 @@ export default function JoinForm() {
 						</div>
 						<div>
 							<label htmlFor="password" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호</label>
-							<input onChange={onPasswordHandler} id="password" name="password" type="password" autoComplete="current-password" required
+							<input onChange={onPasswordChange} id="password" name="password" type="password" autoComplete="current-password" required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								   placeholder="비밀번호" value={password}/>
 							<span id="spanPasswordValid" className="block text-red-700 text-xs mt-2 pl-1 text-left">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
 							<label htmlFor="password2" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호 확인</label>
-							<input onChange={onConfirmPasswordHandler} id="password2" name="password2" type="password" required
+							<input onChange={onPassword2Change} id="password2" name="password2" type="password" required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								   placeholder="비밀번호 확인" value={password2}/>
 							<span className="block text-red-700 text-xs mt-2 pl-1 text-left">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
@@ -165,7 +164,7 @@ export default function JoinForm() {
 					</div>
 
 					<div>
-						<button type="submit" onSubmit={onSubmit}
+						<button type="button" onClick={saveJoin}
 								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 							회원가입하기
 						</button>
