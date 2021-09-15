@@ -1,3 +1,5 @@
+import sign from "../../components/sign.js";
+
 export default function SignIn() {
 	return (
 
@@ -45,7 +47,7 @@ export default function SignIn() {
 					</div>
 
 					<div>
-						<button onClick="sign.login()"
+						<button onClick={sign.login}
 								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 							  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
 								  <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -60,7 +62,7 @@ export default function SignIn() {
 				<div>
 
 					<p className="mt-2 text-center text-sm text-gray-600">
-						아직 계정이 없으신가요? <a href="#" className="font-bold text-indigo-600 hover:text-indigo-500 hover:underline ">회원가입하기</a>
+						아직 계정이 없으신가요? <a href="#" onClick={sign.join} className="font-bold text-indigo-600 hover:text-indigo-500 hover:underline ">회원가입하기</a>
 					</p>
 				</div>
 			</div>

@@ -1,0 +1,12 @@
+ [
+	{
+		"userId": 1,
+		"userNm": "Lee",
+		"role": "developer"
+	},
+	{
+		"userId": 2,
+		"userNm": "Kim",
+		"role": "designer"
+	}
+]
