@@ -31,14 +31,14 @@ export default function Links() {
 
 					<li><NavLink to="/sign-up-complete">SignUPComplete<p>회원가입완료</p></NavLink></li>
 
-					<li><NavLink to="">FindID<p>아이디찾기</p></NavLink></li>
-					<li><NavLink to="">FindID-Result<p>아이디찾기 결과</p></NavLink></li>
-					<li><NavLink to="">FindID-Fail<p>아이디찾기 결과실패</p></NavLink></li>
-					<li><NavLink to="">FindPW<p>비밀번호 찾기</p></NavLink></li>
-					<li><NavLink to="">FindPW-Result<p>비밀번호 찾기 결과</p></NavLink></li>
-					<li><NavLink to="">FindPW-Fail<p>비밀번호 찾기 결과실패</p></NavLink></li>
+					<li><NavLink to="/find-id">FindID<p>아이디찾기</p></NavLink></li>
+					<li><NavLink to="/find-id-result">FindID-Result<p>아이디찾기 결과</p></NavLink></li>
+					<li><NavLink to="/find-id-fail">FindID-Fail<p>아이디찾기 결과실패</p></NavLink></li>
+					<li><NavLink to="/find-pw">FindPW<p>비밀번호 찾기</p></NavLink></li>
+					<li><NavLink to="/find-pw-result">FindPW-Result<p>비밀번호 찾기 결과</p></NavLink></li>
+					<li><NavLink to="/find-pw-fail">FindPW-Fail<p>비밀번호 찾기 결과실패</p></NavLink></li>
 
-					<li><NavLink to="">MemberModify<p>회원정보수정</p></NavLink></li>
+					<li><NavLink to="/member-modify">MemberModify<p>회원정보수정</p></NavLink></li>
 
 				</ul>
 			</div>
@@ -46,9 +46,9 @@ export default function Links() {
 			<div className="set">
 				<h2>게시판</h2>
 				<ul>
-					<li><NavLink to="">List <p>List</p></NavLink></li>
-					<li><NavLink to="">View <p>View</p></NavLink></li>
-					<li><NavLink to="">Modify <p>Modify</p></NavLink></li>
+					<li><NavLink to="/">List <p>List</p></NavLink></li>
+					<li><NavLink to="/">View <p>View</p></NavLink></li>
+					<li><NavLink to="/">Modify <p>Modify</p></NavLink></li>
 					<li><NavLink to="">. <p>.</p></NavLink></li>
 					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
