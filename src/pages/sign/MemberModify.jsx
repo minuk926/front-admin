@@ -1,6 +1,7 @@
 
-export default function FindPwResult() {
+export default function MemberModify() {
 	return (
+
 
 		//  준비중
 		<div className="min-h-screen flex flex-col items-center justify-center hover:bg-gray-200 transition py-12 px-4 sm:px-6 lg:px-8">

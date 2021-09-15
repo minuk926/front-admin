@@ -9,6 +9,7 @@ import FindIdFail from "../pages/sign/FindIdFail";
 import FindPw from "../pages/sign/FindPw";
 import FindPwResult from "../pages/sign/FindPwResult";
 import FindPwFail from "../pages/sign/FindPwFail";
+import MemberModify from "../pages/sign/MemberModify";
 import Links from "./Links";
 
 export default function RouteAdmin() {
@@ -25,6 +26,7 @@ export default function RouteAdmin() {
 				<Route path="/find-pw" component={FindPw}/>
 				<Route path="/find-pw-result" component={FindPwResult}/>
 				<Route path="/find-pw-fail" component={FindPwFail}/>
+				<Route path="/member-modify" component={MemberModify}/>
 				<Route path="/" exact component={Links}/>
 			</Switch>
 		</BrowserRouter>
