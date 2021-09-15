@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Login from "../pages/sign/Login";
-import SignIn from "../pages/sign/SignIn";
-import SignUp from "../pages/sign/SignUp";
+import SignForm from "../pages/sign/SignForm";
+import JoinForm from "../pages/sign/JoinForm";
 import SignUPComplete from "../pages/sign/SignUPComplete";
 import FindId from "../pages/sign/FindId";
 import FindIdResult from "../pages/sign/FindIdResult";
@@ -17,8 +17,8 @@ export default function RouteAdmin() {
 		<BrowserRouter>
 			<Switch>
 				<Route path="/login" component={Login}/>
-				<Route path="/sign-in" component={SignIn}/>
-				<Route path="/sign-up" component={SignUp}/>
+				<Route path="/sign-in" component={SignForm}/>
+				<Route path="/join" component={JoinForm}/>
 				<Route path="/sign-up-Complete" component={SignUPComplete}/>
 				<Route path="/find-id" component={FindId}/>
 				<Route path="/find-id-result" component={FindIdResult}/>

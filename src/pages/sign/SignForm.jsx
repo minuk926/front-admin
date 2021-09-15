@@ -1,6 +1,104 @@
-import sign from "../../components/sign.js";
+import {useHistory} from "react-router-dom";
+import axios from "axios";
 
-export default function SignIn() {
+export default function SignForm() {
+	let history = useHistory();
+
+	function goJoin(e) {
+		e.preventDefault();
+		history.push('/join');
+	}
+
+	function login(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+
+
+		/*
+		id저장 사용시
+				cmm.setCookie("userid", "minuk926", 10);
+
+				let savedId = cmm.getCookie("userid");
+				const id = savedId? savedId : document.querySelector('#id').value;
+				const password = document.querySelector('#password');
+
+				if(savedId){
+					document.querySelector('#id').value = savedId;
+					cmm.setCookie("userid", id, 365);
+				}
+				// // id저장이 체크된 경우
+				// // if ($("#chkId").is(":checked")) {
+				// // 	document.cookie("userid", savedId, {"expires" : 365});
+				// // } else {
+				// // 	document.cookie = ;
+				// // }
+		*/
+		const id = document.querySelector('#id').value;
+		const password = document.querySelector('#password').value;
+
+		// 숫자, 영문만 입력 가능
+		const regExpId = /^[0-9a-z]{5,20}$/;
+
+		// 비밀번호 규칙 정규식
+		// : 숫자, 특문, 영문 각 1개 이상 사용하여 8자리 이상 입력
+		const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
+
+		// 이메일주소 형식 체크 정규식
+		const regExpEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		if(!regExpId.test(id)){
+			alert(`id를 다시 입력해 주세요[숫자, 영문, 5자리 이상]`);
+			//	return false;
+		}
+
+		if(!regExpPw.test(password)){
+			alert(`비밀번호를 다시 입력해 주세요[숫자, 특문, 영문 각 1개 이상 사용, 8자리 이상]`);
+			//	return false;
+		}
+
+
+
+		//
+		// let form = document.querySelector("#frmLogin");
+		// form.action = url;
+		// form.method = 'POST';
+		// form.target = "_self";
+		// if (data) {
+		// 	for (var key in data) {
+		// 		var input = document.createElement("textarea");
+		// 		input.name = key;
+		// 		input.value = typeof data[key] === "object"
+		// 			? JSON.stringify(data[key])
+		// 			: data[key];
+		// 		form.appendChild(input);
+		// 	}
+		// }
+		// form.style.display = 'none';
+		// document.body.appendChild(form);
+		// form.submit();
+
+
+		// axios.post(
+		// 	'./db.json',
+		// 	{
+		// 		userId: 1,
+		// 		userPwd: '1qaz2wsx'
+		// 	}
+		//
+		// 	{header:''}
+		axios.get('./db.json')
+			.then(res => {
+				alert(JSON.stringify(res.data[0]));
+				//history.push()
+			}).catch(e => {
+			alert(e)
+			console.log(e.response);
+			console.log(e.request);
+		})
+
+	}
+
 	return (
 
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -47,7 +145,7 @@ export default function SignIn() {
 					</div>
 
 					<div>
-						<button onClick={sign.login}
+						<button onClick={login}
 								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 							  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
 								  <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -62,7 +160,7 @@ export default function SignIn() {
 				<div>
 
 					<p className="mt-2 text-center text-sm text-gray-600">
-						아직 계정이 없으신가요? <a href="#" onClick={sign.join} className="font-bold text-indigo-600 hover:text-indigo-500 hover:underline ">회원가입하기</a>
+						아직 계정이 없으신가요? <a href="#" onClick={goJoin} className="font-bold text-indigo-600 hover:text-indigo-500 hover:underline ">회원가입하기</a>
 					</p>
 				</div>
 			</div>

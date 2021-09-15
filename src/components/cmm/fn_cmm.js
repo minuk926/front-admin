@@ -20,17 +20,13 @@ const fn_cmm = {
 	 *
 	 * @param name - The name of the cookie to be set
 	 * @param value - The value of the cookie
-	 * @param days - supports any cookie option like path, expires, maxAge and domain. [MDN Cookie Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
+	 * @param expiredays - supports any cookie option like path, expires, maxAge and domain. [MDN Cookie Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
 	 */
-	setCookie: (name, value, days) => {
-		let expiredDate = new Date();
-		if(expiredDate) {
-			document.cookie = `${name}=${encodeURIComponent(value)}${
-				{expires: expiredDate.setDate(expiredDate.getDate() + days).toUTCString()}
-			}`;
-		}else{
-			document.cookie = `${name}=${encodeURIComponent(value)}`
-		}
+	setCookie: (name, value, expiredays) => {
+		let todayDate = new Date();
+		todayDate.setTime (todayDate.getTime() + (expiredays*24*60*60*1000));
+		let expired = todayDate.toGMTString();
+		document.cookie = `${name} = ${escape(value)}; expires = ${expired}; path=/`;
 	},
 
 	/**

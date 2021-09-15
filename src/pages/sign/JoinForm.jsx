@@ -1,11 +1,80 @@
 import {Fragment, useRef, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import sign from "../../components/sign.js";
 
-export default function SignUp() {
-	const [open, setOpen] = useState(false)
+export default function JoinForm() {
 
-	const cancelButtonRef = useRef(null)
+	const [open, setOpen] = useState(false);
+	const [password, setPassword] = useState("")
+	const [password2, setPassword2] = useState("")
+
+	const cancelButtonRef = useRef(null);
+
+
+	function idCheck(e){
+		// 숫자, 영문만 입력 가능
+		const regExpId = /^[0-9a-z]{5,20}$/;
+		if(!regExpId.test(document.querySelector('#id').value)){
+			document.querySelector('#spanIdValid').style = 'display';
+		}else{
+			document.querySelector('#spanIdValid').style['display'] = 'none';
+		}
+	}
+
+	function phoneCheck(e){
+		// 숫자, 영문만 입력 가능
+		const regExpId = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+		if(!regExpId.test(document.querySelector('#tel').value)){
+			document.querySelector('#spanTelValid').style = 'display';
+		}else{
+			document.querySelector('#spanTelValid').style['display'] = 'none';
+		}
+	}
+
+	const onPasswordHandler = (e) => {
+		setPassword(e.target.value);
+	}
+
+	const onConfirmPasswordHandler = (e) => {
+		setPassword2(e.target.value);
+	}
+
+	function passwordCheck(e){
+		// 숫자, 영문만 입력 가능
+		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
+		const id = document.querySelector('#id').value;
+		const password = document.querySelector('#password').value;
+
+		if(!regExpId.test(password)){
+			document.querySelector('#spanPasswordValid').style = 'display';
+			document.querySelector('#password').focus();
+			return false;
+		}else{
+			document.querySelector('#spanPasswordValid').style['display'] = 'none';
+		}
+
+		if(/(\w)\1\1\1/.test(password)){
+
+			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
+
+			return false;
+
+		}
+
+		if(password.search(id) > -1){
+
+			alert("비밀번호에 아이디가 포함되었습니다.");
+
+			return false;
+
+		}
+	}
+
+	const onSubmit = (e) => {
+		e.preventDefault()
+		if(password !== password2) {
+			return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
+		}
+	}
 
 	return (
 
@@ -31,13 +100,13 @@ export default function SignUp() {
 									   className="flex-initial w-full appearance-none rounded-none relative block px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 									   placeholder="아이디"/>
 
-								<button type="submit"
+								<button onClick={idCheck} type="button"
 										className="flex-initial w-1/3 justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
 									중복확인
 								</button>
 
 							</div>
-							<span className="block text-red-700 text-xs mt-2 pl-1 text-left">규칙에 맞는 이메일 주소를 입력해주세요.</span>
+							<span id="spanIdValid" className="block text-red-700 text-xs mt-2 pl-1 text-left">규칙에 맞는 id를 입력해주세요.</span>
 						</div>
 
 						<div>
@@ -47,26 +116,26 @@ export default function SignUp() {
 								<input id="tel" name="tel" type="tel" autoComplete="tel" required
 									   className="flex-initial w-full appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 									   placeholder="휴대폰 번호"/>
-								<button type="submit"
+								<button onClick={phoneCheck} type="button"
 										className="flex-initial w-1/3 justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
 									번호인증
 								</button>
 							</div>
-							<span className="block text-red-700 text-xs mt-2  pl-1 text-left">규칙에 맞는 휴대폰 번호를 입력해 주세요.</span>
+							<span id="spanTelValid" className="block text-red-700 text-xs mt-2  pl-1 text-left">규칙에 맞는 휴대폰 번호를 입력해 주세요.</span>
 
 						</div>
 						<div>
 							<label htmlFor="password" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호</label>
-							<input id="password" name="password" type="password" autoComplete="current-password" required
+							<input onChange={onPasswordHandler} id="password" name="password" type="password" autoComplete="current-password" required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								   placeholder="비밀번호"/>
-							<span className="block text-red-700 text-xs mt-2 pl-1 text-left">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
+								   placeholder="비밀번호" value={password}/>
+							<span id="spanPasswordValid" className="block text-red-700 text-xs mt-2 pl-1 text-left">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
 							<label htmlFor="password2" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호 확인</label>
-							<input id="password2" name="password2" type="password" required
+							<input onChange={onConfirmPasswordHandler} id="password2" name="password2" type="password" required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								   placeholder="비밀번호 확인"/>
+								   placeholder="비밀번호 확인" value={password2}/>
 							<span className="block text-red-700 text-xs mt-2 pl-1 text-left">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
 						</div>
 						<div>
@@ -96,7 +165,7 @@ export default function SignUp() {
 					</div>
 
 					<div>
-						<button type="submit"
+						<button type="submit" onSubmit={onSubmit}
 								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 							회원가입하기
 						</button>

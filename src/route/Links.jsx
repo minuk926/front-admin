@@ -26,8 +26,8 @@ export default function Links() {
 				<ul>
 					<li className=""><NavLink to="/login">Login<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>로그인</p></NavLink>
 					</li>
-					<li><NavLink to="/sign-in">Sign-In<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>아이디 로그인</p></NavLink></li>
-					<li><NavLink to="/sign-up">Sign-Up<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원가입</p></NavLink></li>
+					<li><NavLink to="/sign-in">SignForm<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>아이디 로그인</p></NavLink></li>
+					<li><NavLink to="/join">JoinForm<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원가입</p></NavLink></li>
 
 					<li><NavLink to="/sign-up-complete">SignUPComplete<p>회원가입완료</p></NavLink></li>
 
