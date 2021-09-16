@@ -1,4 +1,30 @@
+import axios from "axios";
+
 const fn_cmm = {
+	requestApi: async (method, url, data, callback, headers) => {
+		try {
+			const res = await axios({
+					url: process.env.REACT_APP_API+url,
+				    method,
+					data,
+				    headers
+					//headers? headers: header : null
+				}
+			);
+			if(res.status === 200 && res.data.success){
+				callback(res.data.data);
+			}else{
+				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
+				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);
+				callback(res.data);
+			}
+		}catch(e){
+			debugger
+			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
+			alert(e)
+			callback(e);
+		}
+	},
 	/**
 	 * Returns a cookie value if a name is specified. Otherwise returns the entire cookies as an object
 	 * @param [name] - The name of the cookie to fetch the value for. Returns the entire map of cookies if not specified

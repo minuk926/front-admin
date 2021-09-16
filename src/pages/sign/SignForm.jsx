@@ -1,6 +1,6 @@
 import {useHistory} from "react-router-dom";
-import axios from "axios";
-import {LockClosedIcon} from '@heroicons/react/solid'
+import {LockClosedIcon} from '@heroicons/react/solid';
+import cmm from "components/cmm/fn_cmm";
 
 
 import adminUrl from "components/cmm/admin_url";
@@ -70,46 +70,18 @@ export default function SignForm() {
 			//	return false;
 		}
 
-
-
-		//
-		// let form = document.querySelector("#frmLogin");
-		// form.action = url;
-		// form.method = 'POST';
-		// form.target = "_self";
-		// if (data) {
-		// 	for (var key in data) {
-		// 		var input = document.createElement("textarea");
-		// 		input.name = key;
-		// 		input.value = typeof data[key] === "object"
-		// 			? JSON.stringify(data[key])
-		// 			: data[key];
-		// 		form.appendChild(input);
-		// 	}
-		// }
-		// form.style.display = 'none';
-		// document.body.appendChild(form);
-		// form.submit();
-
-
-		axios.post(
+		cmm.requestApi(
+			'post',
 			adminUrl.LOGIN,
 			{
 				userId: userId,
 				userPswd: userPassword
+			},
+			res => {
+				alert(JSON.stringify(res));
+				if(res.success)	history.push('/');
 			}
-
-		// 	{header:''}
-		//axios.get('http://localhost:8090/api/auth/login')
-		).then(res => {
-				alert(JSON.stringify(res.data[0]));
-				//history.push()
-			}).catch(e => {
-			alert(e)
-			console.log(e.response);
-			console.log(e.request);
-		})
-
+		)
 	}
 
 	return (
