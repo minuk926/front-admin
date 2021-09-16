@@ -96,55 +96,75 @@ export default function JoinForm() {
 					<div className="space-y-6">
 
 						<div>
-							<label htmlFor="userId" className="block text-grey-darker text-sm font-bold mb-2 text-left">아이디</label>
+							<label htmlFor="userId" className="input-label">아이디</label>
 							<div className="flex space-x-2">
 
 								<input id="userId" name="userId" type="text" autoComplete="username" required
-									   className="flex-initial w-full appearance-none rounded-none relative block px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+									   className="input-st flex-initial w-full"
 									   placeholder="아이디"/>
 
 								<button onClick={idCheck} type="button"
-										className="flex-initial w-1/3 justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
+										className="bt-gray flex-initial w-1/3 ">
 									중복확인
 								</button>
 
 							</div>
-							<span id="spanIdValid" className="block text-red-700 text-xs mt-2 pl-1 text-left">규칙에 맞는 id를 입력해주세요.</span>
+							<span id="spanIdValid" className="input-msg-red">규칙에 맞는 id를 입력해주세요.</span>
 						</div>
-
+						<div>
+							<label htmlFor="name" className="input-label">이름</label>
+							<input id="name" name="name" type="text"
+								   className="input-st w-full"
+								   placeholder="실명을 입력하세요."/>
+						</div>
 						<div>
 
-							<label htmlFor="tel" className="block text-grey-darker text-sm font-bold mb-2 text-left">휴대폰 번호</label>
+							<label htmlFor="tel" className="input-label">휴대폰 번호</label>
 							<div className="flex space-x-2">
 								<input id="tel" name="tel" type="tel" autoComplete="tel" required
-									   className="flex-initial w-full appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-									   placeholder="휴대폰 번호"/>
+									   className="input-st flex-initial w-full"
+									   placeholder="'-'구분없이 입력"/>
 								<button onClick={phoneCheck} type="button"
-										className="flex-initial w-1/3 justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
-									번호인증
+										className="bt-gray flex-initial w-1/3 ">
+									인증번호 전송
 								</button>
 							</div>
-							<span id="spanTelValid" className="block text-red-700 text-xs mt-2  pl-1 text-left">규칙에 맞는 휴대폰 번호를 입력해 주세요.</span>
+							<span id="spanTelValid" className="input-msg-red">규칙에 맞는 휴대폰 번호를 입력해 주세요.</span>
 
 						</div>
 						<div>
-							<label htmlFor="password" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호</label>
+							<label htmlFor="telauth" className="input-label">인증번호</label>
+							<input id="telauth" name="telauth" type="text"
+								   className="input-st w-full"
+								   placeholder="인증번호 입력"/>
+							<span id="spanTelValid" className="input-msg-blue">휴대폰 번호 인증 완료</span>
+						</div>
+
+						<div>
+							<label htmlFor="password" className="input-label">비밀번호</label>
 							<input onChange={onPasswordChange} id="password" name="password" type="password" autoComplete="current-password" required
-								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								   className="input-st w-full"
 								   placeholder="비밀번호" value={password}/>
-							<span id="spanPasswordValid" className="block text-red-700 text-xs mt-2 pl-1 text-left">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
+							<span id="spanPasswordValid" className="input-msg-red">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
-							<label htmlFor="password2" className="block text-grey-darker text-sm font-bold mb-2 text-left">비밀번호 확인</label>
+							<label htmlFor="password2" className="input-label">비밀번호 확인</label>
 							<input onChange={onPassword2Change} id="password2" name="password2" type="password" required
-								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								   className="input-st w-full"
 								   placeholder="비밀번호 확인" value={password2}/>
-							<span className="block text-red-700 text-xs mt-2 pl-1 text-left">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
+							<span className="input-msg-red">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
 						</div>
 						<div>
-							<label htmlFor="memo" className="block text-grey-darker text-sm font-bold mb-2 text-left">하고싶은 말</label>
+							<label htmlFor="email" className="input-label">이메일</label>
+							<input id="email" name="email" type="text"
+								   className="input-st w-full"
+								   placeholder="이메일"/>
+							<span id="spanTelValid" className="input-msg-red">규칙에 맞는 이메일 주소를 입력해 주세요.</span>
+						</div>
+						<div>
+							<label htmlFor="memo" className="input-label">하고싶은 말</label>
 							<input id="memo" name="memo" type="text"
-								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								   className="input-st w-full"
 								   placeholder="하고싶은 말"/>
 						</div>
 
@@ -169,7 +189,7 @@ export default function JoinForm() {
 
 					<div>
 						<button type="button" onClick={saveJoin}
-								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+								className="bt-indigo group w-full flex ">
 							회원가입하기
 						</button>
 					</div>

@@ -32,7 +32,7 @@ export default function Login() {
 				</div>
 				<div>
 					<button onClick={kakaoLogin}
-							className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600">
+							className="bt-yellow relative w-full flex ">
 				  <span className="absolute left-0 inset-y-0 flex items-center pl-4">
 					  <svg className="h-5 w-5 text-yellow-300 group-hover:text-yellow-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
 						   aria-hidden="true">
@@ -48,7 +48,7 @@ export default function Login() {
 
 				<div>
 					<button onClick={googleLogin}
-							className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700">
+							className="bt-red relative w-full flex">
 		  <span className="absolute left-0 inset-y-0 flex items-center pl-4">
 
 			  <svg className="h-5 w-5 text-red-400 group-hover:text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -62,7 +62,7 @@ export default function Login() {
 
 				<div>
 					<button onClick={goLogin}
-							className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+							className="bt-indigo relative w-full flex">
 
 					<span className="absolute left-1 inset-y-0 flex items-center pl-3">
                			<LockClosedIcon className="h-6 w-6 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true"/>
