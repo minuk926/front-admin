@@ -12,7 +12,7 @@ export default function JoinForm() {
 
 	function idCheck(e){
 		// 숫자, 영문만 입력 가능
-		const regExpId = /^[0-9a-z]{5,20}$/;
+		const regExpId = /^[0-9a-z]{6,20}$/;
 		if(!regExpId.test(document.querySelector('#id').value)){
 			document.querySelector('#spanIdValid').style = 'display';
 		}else{
@@ -55,7 +55,7 @@ export default function JoinForm() {
 
 	function passwordCheck(){
 		// 숫자, 영문만 입력 가능
-		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
+		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{6,50}$/;
 		const id = document.querySelector('#id').value;
 		const password = document.querySelector('#password').value;
 

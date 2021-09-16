@@ -50,23 +50,20 @@ export default function SignForm() {
 				// // 	document.cookie = ;
 				// // }
 		*/
-		// 숫자, 영문만 입력 가능
-		const regExpId = /^[0-9a-z]{5,20}$/;
+		// userId
+		const regExpId = /^[0-9a-zA-Z@]{6,20}$/;
 
 		// 비밀번호 규칙 정규식
 		// : 숫자, 특문, 영문 각 1개 이상 사용하여 8자리 이상 입력
-		const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
-
-		// 이메일주소 형식 체크 정규식
-		const regExpEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		const regExpPw = /^[0-9a-zA-Z~`!@#$%\^&*()-+=]{6,20}$/;
 
 		if(!regExpId.test(userId)){
-			alert(`id를 다시 입력해 주세요[숫자, 영문, 5자리 이상]`);
+			alert(`id를 다시 입력해 주세요`);
 			//	return false;
 		}
 
 		if(!regExpPw.test(userPassword)){
-			alert(`비밀번호를 다시 입력해 주세요[숫자, 특문, 영문 각 1개 이상 사용, 8자리 이상]`);
+			alert(`비밀번호를 다시 입력해 주세요`);
 			//	return false;
 		}
 
