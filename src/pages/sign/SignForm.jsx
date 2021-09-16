@@ -1,8 +1,22 @@
 import {useHistory} from "react-router-dom";
 import axios from "axios";
 
+import adminUrl from "components/cmm/admin_url";
+import {useState} from "react";
+
 export default function SignForm() {
 	let history = useHistory();
+
+	const [userId, setUserId] = useState();
+	const [userPassword, setUserPassword] = useState();
+
+	function onChangeUserId(e) {
+		setUserId(e.target.value);
+	}
+
+	function onChangeUserPassword(e) {
+		setUserPassword(e.target.value);
+	}
 
 	function goJoin(e) {
 		e.preventDefault();
@@ -34,9 +48,6 @@ export default function SignForm() {
 				// // 	document.cookie = ;
 				// // }
 		*/
-		const id = document.querySelector('#id').value;
-		const password = document.querySelector('#password').value;
-
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9a-z]{5,20}$/;
 
@@ -47,12 +58,12 @@ export default function SignForm() {
 		// 이메일주소 형식 체크 정규식
 		const regExpEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-		if(!regExpId.test(id)){
+		if(!regExpId.test(userId)){
 			alert(`id를 다시 입력해 주세요[숫자, 영문, 5자리 이상]`);
 			//	return false;
 		}
 
-		if(!regExpPw.test(password)){
+		if(!regExpPw.test(userPassword)){
 			alert(`비밀번호를 다시 입력해 주세요[숫자, 특문, 영문 각 1개 이상 사용, 8자리 이상]`);
 			//	return false;
 		}
@@ -80,10 +91,10 @@ export default function SignForm() {
 
 
 		axios.post(
-			'http://localhost:8090/api/auth/login',
+			adminUrl.LOGIN,
 			{
-				userId: 1,
-				userPswd: '1qaz2wsx'
+				userId: userId,
+				userPswd: userPassword
 			}
 
 		// 	{header:''}
@@ -115,15 +126,15 @@ export default function SignForm() {
 					<input type="hidden" name="remember" defaultValue="true"/>
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
-							<label htmlFor="id" className="sr-only">아이디</label>
-							<input id="id" name="id" autoComplete="id" required
+							<label htmlFor="userId" className="sr-only">아이디</label>
+							<input id="userId" name="userId" onChange={onChangeUserId} value={userId} required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								   placeholder="아이디"/>
 
 						</div>
 						<div>
-							<label htmlFor="password" className="sr-only">패스워드</label>
-							<input id="password" name="password" type="password" autoComplete="current-password" required
+							<label htmlFor="userPwsd" className="sr-only">패스워드</label>
+							<input id="userPwsd" name="userPwsd" type="password" onChange={onChangeUserPassword} value={userPassword} required
 								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								   placeholder="패스워드"/>
 						</div>
