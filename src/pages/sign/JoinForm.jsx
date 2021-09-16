@@ -96,10 +96,10 @@ export default function JoinForm() {
 					<div className="space-y-6">
 
 						<div>
-							<label htmlFor="id" className="block text-grey-darker text-sm font-bold mb-2 text-left">아이디</label>
+							<label htmlFor="userId" className="block text-grey-darker text-sm font-bold mb-2 text-left">아이디</label>
 							<div className="flex space-x-2">
 
-								<input id="id" name="id" type="text" autoComplete="username" required
+								<input id="userId" name="userId" type="text" autoComplete="username" required
 									   className="flex-initial w-full appearance-none rounded-none relative block px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 									   placeholder="아이디"/>
 

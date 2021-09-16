@@ -79,16 +79,16 @@ export default function SignForm() {
 		// form.submit();
 
 
-		// axios.post(
-		// 	'./db.json',
-		// 	{
-		// 		userId: 1,
-		// 		userPwd: '1qaz2wsx'
-		// 	}
-		//
+		axios.post(
+			'http://localhost:8090/api/auth/login',
+			{
+				userId: 1,
+				userPswd: '1qaz2wsx'
+			}
+
 		// 	{header:''}
-		axios.get('./db.json')
-			.then(res => {
+		//axios.get('http://localhost:8090/api/auth/login')
+		).then(res => {
 				alert(JSON.stringify(res.data[0]));
 				//history.push()
 			}).catch(e => {
