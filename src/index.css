@@ -36,8 +36,11 @@
 
 }
 
-.input-st {
+.input-basic {
 	@apply  appearance-none rounded-none relative block px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm;
+}
+.input-login {
+	@apply  appearance-none rounded-none relative block px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm;
 }
 
 .bt-gray {
@@ -55,8 +58,6 @@
 .bt-yellow {
 	@apply  justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600
 }
-
-
 
 .input-label{
 	@apply  block text-sm font-bold mb-2 text-left;

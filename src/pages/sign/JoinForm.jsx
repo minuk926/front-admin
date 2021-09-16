@@ -100,7 +100,7 @@ export default function JoinForm() {
 							<div className="flex space-x-2">
 
 								<input id="userId" name="userId" type="text" autoComplete="username" required
-									   className="input-st flex-initial w-full"
+									   className="input-basic flex-initial w-full"
 									   placeholder="아이디"/>
 
 								<button onClick={idCheck} type="button"
@@ -114,7 +114,7 @@ export default function JoinForm() {
 						<div>
 							<label htmlFor="name" className="input-label">이름</label>
 							<input id="name" name="name" type="text"
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="실명을 입력하세요."/>
 						</div>
 						<div>
@@ -122,7 +122,7 @@ export default function JoinForm() {
 							<label htmlFor="tel" className="input-label">휴대폰 번호</label>
 							<div className="flex space-x-2">
 								<input id="tel" name="tel" type="tel" autoComplete="tel" required
-									   className="input-st flex-initial w-full"
+									   className="input-basic flex-initial w-full"
 									   placeholder="'-'구분없이 입력"/>
 								<button onClick={phoneCheck} type="button"
 										className="bt-gray flex-initial w-1/3 ">
@@ -135,7 +135,7 @@ export default function JoinForm() {
 						<div>
 							<label htmlFor="telauth" className="input-label">인증번호</label>
 							<input id="telauth" name="telauth" type="text"
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="인증번호 입력"/>
 							<span id="spanTelValid" className="input-msg-blue">휴대폰 번호 인증 완료</span>
 						</div>
@@ -143,28 +143,28 @@ export default function JoinForm() {
 						<div>
 							<label htmlFor="password" className="input-label">비밀번호</label>
 							<input onChange={onPasswordChange} id="password" name="password" type="password" autoComplete="current-password" required
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="비밀번호" value={password}/>
 							<span id="spanPasswordValid" className="input-msg-red">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
 							<label htmlFor="password2" className="input-label">비밀번호 확인</label>
 							<input onChange={onPassword2Change} id="password2" name="password2" type="password" required
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="비밀번호 확인" value={password2}/>
 							<span className="input-msg-red">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
 						</div>
 						<div>
 							<label htmlFor="email" className="input-label">이메일</label>
 							<input id="email" name="email" type="text"
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="이메일"/>
 							<span id="spanTelValid" className="input-msg-red">규칙에 맞는 이메일 주소를 입력해 주세요.</span>
 						</div>
 						<div>
 							<label htmlFor="memo" className="input-label">하고싶은 말</label>
 							<input id="memo" name="memo" type="text"
-								   className="input-st w-full"
+								   className="input-basic w-full"
 								   placeholder="하고싶은 말"/>
 						</div>
 

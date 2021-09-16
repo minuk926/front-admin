@@ -130,14 +130,14 @@ export default function SignForm() {
 						<div>
 							<label htmlFor="userId" className="sr-only">아이디</label>
 							<input id="userId" name="userId" onChange={onChangeUserId} value={userId} required
-								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								   className="input-login w-full rounded-t-md"
 								   placeholder="아이디"/>
 
 						</div>
 						<div>
 							<label htmlFor="userPwsd" className="sr-only">패스워드</label>
 							<input id="userPwsd" name="userPwsd" type="password" onChange={onChangeUserPassword} value={userPassword} required
-								   className="appearance-none rounded-none relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								   className="input-login w-full rounded-b-md"
 								   placeholder="패스워드"/>
 						</div>
 					</div>
@@ -159,7 +159,7 @@ export default function SignForm() {
 
 					<div>
 						<button onClick={login}
-								className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+								className="bt-indigo group w-full flex">
 							  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
 								<LockClosedIcon className="h-6 w-6 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
 							  </span>
