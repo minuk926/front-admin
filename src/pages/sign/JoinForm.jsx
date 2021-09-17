@@ -5,7 +5,7 @@ import adminUrl from "../../components/cmm/admin_url";
 import {useHistory} from "react-router-dom";
 
 export default function JoinForm() {
-
+	const history = useHistory();
 	const [open, setOpen] = useState(false);
 	const [userId, setUserId] = useState("");
 	const [userPswd, setUserPswd] = useState("");
@@ -41,7 +41,7 @@ export default function JoinForm() {
 					//alert(JSON.stringify(res));
 					if (res.success) {
 						alert('정상 처리 되었습니다');
-						useHistory().push('/');
+						history.push('/');
 					}
 				},
 				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
