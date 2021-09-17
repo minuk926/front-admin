@@ -21,7 +21,6 @@ const fn_cmm = {
 				callback(res.data);
 			}
 		}catch(e){
-			debugger
 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
 			alert(e)
 			callback(e);
