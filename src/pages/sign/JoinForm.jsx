@@ -32,7 +32,7 @@ export default function JoinForm() {
 			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
 		}
 
-		if(!confirm(`회원 가입 하시겠습니까?`)) {
+		//if(!confirm(`회원 가입 하시겠습니까?`)) {
 			cmm.requestApi(
 				'post',
 				adminUrl.JOIN,
@@ -46,7 +46,7 @@ export default function JoinForm() {
 				},
 				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
 			)
-		}
+		//}
 	}
 
 	function idCheck(e){
