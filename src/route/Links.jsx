@@ -29,7 +29,7 @@ export default function Links() {
 					<li><NavLink to="/sign-in">SignForm<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>아이디 로그인</p></NavLink></li>
 					<li><NavLink to="/join">JoinForm<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원가입</p></NavLink></li>
 
-					<li><NavLink to="/sign-up-complete">SignUPComplete<p>회원가입완료</p></NavLink></li>
+					<li><NavLink to="/sign-up-complete">SignUPComplete<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원가입완료</p></NavLink></li>
 
 					<li><NavLink to="/find-id">FindID<p>아이디찾기</p></NavLink></li>
 					<li><NavLink to="/find-id-result">FindID-Result<p>아이디찾기 결과</p></NavLink></li>

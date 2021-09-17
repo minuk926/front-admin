@@ -157,7 +157,8 @@ export default function JoinForm() {
 							<input id="mobileAuth" name="mobileAuth" type="text"
 								   className="input-basic w-full"
 								   placeholder="인증번호 입력" value={mobileAuth} onChange={e=>setMobileAuth(e.target.value)}/>
-							<span id="spanTelValid" className="input-msg-blue">휴대폰 번호 인증 완료</span>
+							<span id="" className="input-msg-blue">번호 인증 완료</span>
+							<span id="" className="input-msg-red">인증번호가 틀렸습니다. 다시 확인해주세요.</span>
 						</div>
 
 						<div>
