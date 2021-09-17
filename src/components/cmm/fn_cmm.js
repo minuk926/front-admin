@@ -14,7 +14,8 @@ const fn_cmm = {
 				}
 			);
 			if(res.status === 200 && res.data.success){
-				callback(res.data.data);
+				console.log(JSON.stringify(res.data));
+				callback(res.data);
 			}else{
 				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
 				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);

@@ -38,10 +38,9 @@ export default function JoinForm() {
 				adminUrl.JOIN,
 				cmm.getJsonFromForm(document.querySelector('#frmJoin')),
 				res => {
-					//alert(JSON.stringify(res));
 					if (res.success) {
 						alert('정상 처리 되었습니다');
-						history.push('/');
+						history.push('sign-in');
 					}
 				},
 				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
