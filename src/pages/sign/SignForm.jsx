@@ -50,13 +50,13 @@ export default function SignForm() {
 		const regExpPw = /^[0-9a-zA-Z~`!@#$%\^&*()-+=]{6,20}$/;
 
 		if(!regExpId.test(userId)){
-			alert(`id를 다시 입력해 주세요`);
-			//	return false;
+			alert(`id를 확인해 주세요`);
+			return false;
 		}
 
 		if(!regExpPw.test(userPswd)){
-			alert(`비밀번호를 다시 입력해 주세요`);
-			//	return false;
+			alert(`비밀번호를 확인해 주세요`);
+			return false;
 		}
 
 		cmm.requestApi(
