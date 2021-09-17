@@ -10,15 +10,7 @@ export default function SignForm() {
 	let history = useHistory();
 
 	const [userId, setUserId] = useState();
-	const [userPassword, setUserPassword] = useState();
-
-	function onChangeUserId(e) {
-		setUserId(e.target.value);
-	}
-
-	function onChangeUserPassword(e) {
-		setUserPassword(e.target.value);
-	}
+	const [userPswd, setUserPswd] = useState();
 
 	function goJoin(e) {
 		e.preventDefault();
@@ -62,7 +54,7 @@ export default function SignForm() {
 			//	return false;
 		}
 
-		if(!regExpPw.test(userPassword)){
+		if(!regExpPw.test(userPswd)){
 			alert(`비밀번호를 다시 입력해 주세요`);
 			//	return false;
 		}
@@ -72,11 +64,15 @@ export default function SignForm() {
 			adminUrl.LOGIN,
 			{
 				userId: userId,
-				userPswd: userPassword
+				userPswd: userPswd
 			},
 			res => {
 				alert(JSON.stringify(res));
-				if(res.success)	history.push('/');
+				if(res.success){
+					console.log(JSON.stringify(res));
+					alert(`로그인완료`);
+					history.push('/');
+				}
 			}
 		)
 	}
@@ -98,14 +94,14 @@ export default function SignForm() {
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<label htmlFor="userId" className="sr-only">아이디</label>
-							<input id="userId" name="userId" onChange={onChangeUserId} value={userId} required
+							<input id="userId" name="userId" onChange={e=>setUserId(e.target.value)} value={userId} required
 								   className="input-login w-full rounded-t-md"
 								   placeholder="아이디"/>
 
 						</div>
 						<div>
-							<label htmlFor="userPwsd" className="sr-only">패스워드</label>
-							<input id="userPwsd" name="userPwsd" type="password" onChange={onChangeUserPassword} value={userPassword} required
+							<label htmlFor="userPswd" className="sr-only">패스워드</label>
+							<input id="userPswd" name="userPswd" type="password" onChange={e=>setUserPswd(e.target.value)} value={userPswd} required
 								   className="input-login w-full rounded-b-md"
 								   placeholder="패스워드"/>
 						</div>

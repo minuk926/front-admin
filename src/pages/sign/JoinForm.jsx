@@ -1,30 +1,73 @@
 import {Fragment, useRef, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
+import cmm from "../../components/cmm/fn_cmm";
+import adminUrl from "../../components/cmm/admin_url";
+import {useHistory} from "react-router-dom";
 
 export default function JoinForm() {
 
 	const [open, setOpen] = useState(false);
-	const [password, setPassword] = useState("")
-	const [password2, setPassword2] = useState("")
+	const [userId, setUserId] = useState("");
+	const [userPswd, setUserPswd] = useState("");
+	const [userPswd2, setUserPswd2] = useState("");
+	const [userName, setUserName] = useState("");
+	const [userEmail, setUserEmail] = useState("");
+	const [userMbl, setUserMbl] = useState("");
+	const [mobileAuth, setMobileAuth] = useState("");
 
 	const cancelButtonRef = useRef(null);
 
+	const saveJoin = (e) => {
+		e.preventDefault();
+		if(!idCheck()) return false;
+		if(!userName){
+			document.querySelector('#userName').focus();
+			return false;
+		}
+		if(!passwordCheck()) return false;
+		if(!moblieCheck())	return false;
 
-	function idCheck(e){
-		// 숫자, 영문만 입력 가능
-		const regExpId = /^[0-9a-z]{6,20}$/;
-		if(!regExpId.test(document.querySelector('#id').value)){
-			document.querySelector('#spanIdValid').style = 'display';
-		}else{
-			document.querySelector('#spanIdValid').style['display'] = 'none';
+		//console.log(`password=[${password}], password2=[${password2}]`)
+		if(userPswd !== userPswd2) {
+			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
+		}
+
+		if(!confirm(`회원 가입 하시겠습니까?`)) {
+			cmm.requestApi(
+				'post',
+				adminUrl.JOIN,
+				cmm.getJsonFromForm(document.querySelector('#frmJoin')),
+				res => {
+					//alert(JSON.stringify(res));
+					if (res.success) {
+						alert('정상 처리 되었습니다');
+						useHistory().push('/');
+					}
+				},
+				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+			)
 		}
 	}
 
-	function phoneCheck(){
+	function idCheck(e){
+		// 숫자, 영문만 입력 가능
+		const regExpId = /^[0-9a-zA-Z]{6,20}$/;
+		if(!regExpId.test(userId)){
+			document.querySelector('#spanIdValid').style = 'display';
+			document.querySelector('#userId').focus();
+			return false;
+		}else{
+			document.querySelector('#spanIdValid').style['display'] = 'none';
+		}
+		return true;
+	}
+
+	function moblieCheck(){
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
-		if(!regExpId.test(document.querySelector('#tel').value)){
+		if(!regExpId.test(userMbl)){
 			document.querySelector('#spanTelValid').style = 'display';
+			document.querySelector('#userMbl').focus();
 			return false;
 		}else{
 			document.querySelector('#spanTelValid').style['display'] = 'none';
@@ -32,47 +75,24 @@ export default function JoinForm() {
 		return true;
 	}
 
-	const onPasswordChange = (e) => {
-		console.log(e.target.value);
-		setPassword(e.target.value);
-	}
-
-	const onPassword2Change = (e) => {
-		setPassword2(e.target.value);
-	}
-
-
-	const saveJoin = (e) => {
-		e.preventDefault();
-		if(!passwordCheck()) return false;
-		if(!phoneCheck())	return false;
-
-		//console.log(`password=[${password}], password2=[${password2}]`)
-		if(password !== password2) {
-			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
-		}
-	}
-
 	function passwordCheck(){
 		// 숫자, 영문만 입력 가능
 		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{6,50}$/;
-		const id = document.querySelector('#id').value;
-		const password = document.querySelector('#password').value;
 
-		if(!regExpId.test(password)){
+		if(!regExpId.test(userPswd)){
 			document.querySelector('#spanPasswordValid').style = 'display';
-			document.querySelector('#password').focus();
+			document.querySelector('#userPswd').focus();
 			return false;
 		}else{
 			document.querySelector('#spanPasswordValid').style['display'] = 'none';
 		}
 
-		if(/(\w)\1\1\1/.test(password)){
+		if(/(\w)\1\1\1/.test(userPswd)){
 			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
 			return false;
 		}
 
-		if(password.search(id) > -1){
+		if(userPswd.search(userId) > -1){
 			alert("비밀번호에 아이디가 포함되었습니다.");
 			return false;
 		}
@@ -91,7 +111,7 @@ export default function JoinForm() {
 						가입을 위한 정보를 입력하세요.
 					</p>
 				</div>
-				<form className="mt-8 space-y-6">
+				<form id="frmJoin" className="mt-8 space-y-6">
 					<input type="hidden" name="remember" value="true"/>
 					<div className="space-y-6">
 
@@ -101,7 +121,7 @@ export default function JoinForm() {
 
 								<input id="userId" name="userId" type="text" autoComplete="username" required
 									   className="input-basic flex-initial w-full"
-									   placeholder="아이디"/>
+									   placeholder="아이디" value={userId} onChange={e=>setUserId(e.target.value)}/>
 
 								<button onClick={idCheck} type="button"
 										className="bt-gray flex-initial w-1/3 ">
@@ -109,22 +129,22 @@ export default function JoinForm() {
 								</button>
 
 							</div>
-							<span id="spanIdValid" className="input-msg-red">규칙에 맞는 id를 입력해주세요.</span>
+							<span id="spanIdValid" className="input-msg-red">아이디를 입력해 주세요(영문 또는 숫자 6자 이상 20자 미만)</span>
 						</div>
 						<div>
-							<label htmlFor="name" className="input-label">이름</label>
-							<input id="name" name="name" type="text"
+							<label htmlFor="userName" className="input-label">이름</label>
+							<input id="userName" name="userName" value={userName} onChange={e=>setUserName(e.target.value)} type="text"
 								   className="input-basic w-full"
 								   placeholder="실명을 입력하세요."/>
 						</div>
 						<div>
 
-							<label htmlFor="tel" className="input-label">휴대폰 번호</label>
+							<label htmlFor="userMbl" className="input-label">휴대폰 번호</label>
 							<div className="flex space-x-2">
-								<input id="tel" name="tel" type="tel" autoComplete="tel" required
+								<input id="userMbl" name="userMbl" type="text" autoComplete="userMbl" required
 									   className="input-basic flex-initial w-full"
-									   placeholder="'-'구분없이 입력"/>
-								<button onClick={phoneCheck} type="button"
+									   placeholder="'-'구분없이 입력" value={userMbl} onChange={e=>setUserMbl(e.target.value)}/>
+								<button onClick={moblieCheck} type="button"
 										className="bt-gray flex-initial w-1/3 ">
 									인증번호 전송
 								</button>
@@ -133,40 +153,40 @@ export default function JoinForm() {
 
 						</div>
 						<div>
-							<label htmlFor="telauth" className="input-label">인증번호</label>
-							<input id="telauth" name="telauth" type="text"
+							<label htmlFor="mobileAuth" className="input-label">인증번호</label>
+							<input id="mobileAuth" name="mobileAuth" type="text"
 								   className="input-basic w-full"
-								   placeholder="인증번호 입력"/>
+								   placeholder="인증번호 입력" value={mobileAuth} onChange={e=>setMobileAuth(e.target.value)}/>
 							<span id="spanTelValid" className="input-msg-blue">휴대폰 번호 인증 완료</span>
 						</div>
 
 						<div>
-							<label htmlFor="password" className="input-label">비밀번호</label>
-							<input onChange={onPasswordChange} id="password" name="password" type="password" autoComplete="current-password" required
+							<label htmlFor="userPswd" className="input-label">비밀번호</label>
+							<input id="userPswd" name="userPswd" type="password" autoComplete="userPswd" required
 								   className="input-basic w-full"
-								   placeholder="비밀번호" value={password}/>
+								   placeholder="비밀번호" value={userPswd} onChange={e=>setUserPswd(e.target.value)}/>
 							<span id="spanPasswordValid" className="input-msg-red">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
-							<label htmlFor="password2" className="input-label">비밀번호 확인</label>
-							<input onChange={onPassword2Change} id="password2" name="password2" type="password" required
+							<label htmlFor="userPswd2" className="input-label">비밀번호 확인</label>
+							<input id="userPswd2" name="userPswd2" type="password" required
 								   className="input-basic w-full"
-								   placeholder="비밀번호 확인" value={password2}/>
+								   placeholder="비밀번호 확인" value={userPswd2} onChange={e=>setUserPswd2(e.target.value)}/>
 							<span className="input-msg-red">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
 						</div>
 						<div>
-							<label htmlFor="email" className="input-label">이메일</label>
-							<input id="email" name="email" type="text"
+							<label htmlFor="userEmail" className="input-label">이메일</label>
+							<input id="userEmail" name="userEmail" type="email"
 								   className="input-basic w-full"
-								   placeholder="이메일"/>
+								   placeholder="이메일" value={userEmail} onChange={e=>setUserEmail(e.target.value)}/>
 							<span id="spanTelValid" className="input-msg-red">규칙에 맞는 이메일 주소를 입력해 주세요.</span>
 						</div>
-						<div>
-							<label htmlFor="memo" className="input-label">하고싶은 말</label>
-							<input id="memo" name="memo" type="text"
-								   className="input-basic w-full"
-								   placeholder="하고싶은 말"/>
-						</div>
+						{/*<div>*/}
+						{/*	<label htmlFor="memo" className="input-label">하고싶은 말</label>*/}
+						{/*	<input id="memo" name="memo" type="text"*/}
+						{/*		   className="input-basic w-full"*/}
+						{/*		   placeholder="하고싶은 말"/>*/}
+						{/*</div>*/}
 
 					</div>
 

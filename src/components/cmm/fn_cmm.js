@@ -2,6 +2,8 @@ import axios from "axios";
 
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
+		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
+
 		try {
 			const res = await axios({
 					url: process.env.REACT_APP_API+url,
@@ -25,6 +27,21 @@ const fn_cmm = {
 			callback(e);
 		}
 	},
+
+	/**
+	 * form 데이타를 JSON 으로 return
+	 * @param frm
+	 * @returns {string}
+	 */
+	getJsonFromForm: (frm) => {
+		let formData = new FormData(frm), result = {};
+
+		for (let entry of formData.entries()) {
+			result[entry[0]] = entry[1];
+		}
+		return JSON.stringify(result)
+	},
+
 	/**
 	 * Returns a cookie value if a name is specified. Otherwise returns the entire cookies as an object
 	 * @param [name] - The name of the cookie to fetch the value for. Returns the entire map of cookies if not specified
