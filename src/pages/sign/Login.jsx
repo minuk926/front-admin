@@ -1,9 +1,12 @@
 import {LockClosedIcon} from '@heroicons/react/solid';
 import {useHistory} from "react-router-dom";
+import ConfirmAlert from "../../components/modal/ConfirmAlert";
+import {useState} from "react";
 
 
 export default function Login() {
 	let history = useHistory();
+	const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
 
 	function goLogin() {
 		history.push('/sign-in');
@@ -17,8 +20,15 @@ export default function Login() {
 		alert('kakaoLogin(추후 지원 예정)');
 	}
 
-	return (
 
+
+	function resetConfirmAlert() {
+		setOpenConfirmAlert(!openConfirmAlert);
+	}
+
+	console.log(process.env.NODE_ENV)
+
+	return (
 
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-5">
@@ -61,7 +71,7 @@ export default function Login() {
 				</div>
 
 				<div>
-					<button onClick={goLogin}
+					<button onClick={openConfirmAlert && <ConfirmAlert open={resetConfirmAlert}/>}
 							className="bt-indigo relative w-full flex">
 
 					<span className="absolute left-1 inset-y-0 flex items-center pl-3">
@@ -70,6 +80,12 @@ export default function Login() {
 						아이디 로그인
 					</button>
 				</div>
+
+
+
+
+
+
 				<div>
 
 					<p className="text-center text-xs text-gray-600 pt-5">
@@ -78,6 +94,11 @@ export default function Login() {
 					<a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline ">자주 묻는 질문 바로가기></a>
 				</div>
 			</div>
+
+			<div>
+				{openConfirmAlert && <ConfirmAlert open={resetConfirmAlert}/>}
+			</div>
+
 		</div>
 
 	)

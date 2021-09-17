@@ -9,8 +9,8 @@ const fn_cmm = {
 					url: process.env.REACT_APP_API+url,
 				    method,
 					data,
-				    headers
-					//headers? headers: header : null
+				    headers,
+				    withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
 				}
 			);
 			if(res.status === 200 && res.data.success){
