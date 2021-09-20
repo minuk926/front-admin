@@ -19,7 +19,7 @@ export default function SignForm() {
 
 	function login(e) {
 		e.preventDefault();
-		e.stopPropagation();
+		//e.stopPropagation();
 
 
 
