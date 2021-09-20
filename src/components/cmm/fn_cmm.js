@@ -55,7 +55,7 @@ const fn_cmm = {
 		}).then(res => res)
 	},
 
-	confirmMessage: async(title = '', message = '진행 하시겠습니까?', callback) => {
+	confirmMessage: async(message = '진행 하시겠습니까?', title = '관리자 시스템', callback) => {
 		return await SweetAlert.fire({
 			title: `<p>${title}</p>`,
 			html: `<p>${message}</p>`,
