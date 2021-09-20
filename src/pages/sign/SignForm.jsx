@@ -49,13 +49,18 @@ export default function SignForm() {
 		// : 숫자, 특문, 영문 각 1개 이상 사용하여 8자리 이상 입력
 		const regExpPw = /^[0-9a-zA-Z~`!@#$%\^&*()-+=]{6,20}$/;
 
-		if(!regExpId.test(userId)){
-			alert(`id를 확인해 주세요`);
+		if(!userId || !regExpId.test(userId)){
+			cmm.alertMessage('id를 확인해 주세요.', '로그인')
+				.then();
+			document.querySelector('#userId').focus();
 			return false;
 		}
+//return false;
 
-		if(!regExpPw.test(userPswd)){
-			alert(`비밀번호를 확인해 주세요`);
+		if(!userPswd || !regExpPw.test(userPswd)){
+			cmm.alertMessage('비밀번호를 확인해 주세요.', '로그인')
+				.then();
+			document.querySelector('#userPswd').focus();
 			return false;
 		}
 
@@ -74,7 +79,7 @@ export default function SignForm() {
 					history.push('/');
 				}
 			}
-		)
+		).then()
 	}
 
 	return (

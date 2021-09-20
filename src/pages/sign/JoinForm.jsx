@@ -31,7 +31,8 @@ export default function JoinForm() {
 		//console.log(`password=[${password}], password2=[${password2}]`)
 		if(userPswd !== userPswd2) {
 			cmm.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
-				.then(r => document.querySelector('#userPswd2').focus());
+				.then();
+			document.querySelector('#userPswd2').focus();
 			return false;
 		}
 
