@@ -1,4 +1,8 @@
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content'
+
+const SweetAlert = withReactContent(Swal);
 
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
@@ -41,6 +45,27 @@ const fn_cmm = {
 		}
 		return JSON.stringify(result)
 	},
+
+	alertMessage: async (message, title = '관리자 시스템') => {
+		return await SweetAlert.fire({
+			title: `<p>${title}</p>`,
+			html: `<p>${message}</p>`,
+			footer: 'Copyright 2018',
+			timer: 1500
+		}).then(res => res)
+	},
+
+	confirmMessage: async(title = '', message = '진행 하시겠습니까?', callback) => {
+		return await SweetAlert.fire({
+			title: `<p>${title}</p>`,
+			html: `<p>${message}</p>`,
+			footer: 'Copyright 2021',
+			showCancelButton: true,
+			confirmButtonText: "예",
+			cancelButtonText: "아니오",
+		}).then(res => res.isConfirmed);
+	},
+
 
 	/**
 	 * Returns a cookie value if a name is specified. Otherwise returns the entire cookies as an object

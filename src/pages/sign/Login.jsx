@@ -1,32 +1,22 @@
 import {LockClosedIcon} from '@heroicons/react/solid';
 import {useHistory} from "react-router-dom";
-import ConfirmAlert from "../../components/modal/ConfirmAlert";
-import {useState} from "react";
+import cmm from "components/cmm/fn_cmm";
 
 
 export default function Login() {
 	let history = useHistory();
-	const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
 
 	function goLogin() {
 		history.push('/sign-in');
 	}
 
 	function googleLogin() {
-		alert('googleLogin(추후 지원 예정)');
+		cmm.alertMessage("googleLogin(추후 지원 예정)").then(r => r);
 	}
 
 	function kakaoLogin() {
-		alert('kakaoLogin(추후 지원 예정)');
+		cmm.alertMessage("kakaoLogin(추후 지원 예정)").then(r => r);
 	}
-
-
-
-	function resetConfirmAlert() {
-		setOpenConfirmAlert(!openConfirmAlert);
-	}
-
-	console.log(process.env.NODE_ENV)
 
 	return (
 
@@ -71,7 +61,7 @@ export default function Login() {
 				</div>
 
 				<div>
-					<button onClick={openConfirmAlert && <ConfirmAlert open={resetConfirmAlert}/>}
+					<button onClick={goLogin}
 							className="bt-indigo relative w-full flex">
 
 					<span className="absolute left-1 inset-y-0 flex items-center pl-3">
@@ -81,22 +71,12 @@ export default function Login() {
 					</button>
 				</div>
 
-
-
-
-
-
 				<div>
-
 					<p className="text-center text-xs text-gray-600 pt-5">
 						로그인/회원 관련 궁금하신 사항이 있다면?
 					</p>
 					<a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline ">자주 묻는 질문 바로가기></a>
 				</div>
-			</div>
-
-			<div>
-				{openConfirmAlert && <ConfirmAlert open={resetConfirmAlert}/>}
 			</div>
 
 		</div>

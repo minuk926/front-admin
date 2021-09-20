@@ -19,6 +19,7 @@ export default function JoinForm() {
 
 	const saveJoin = (e) => {
 		e.preventDefault();
+
 		if(!idCheck()) return false;
 		if(!userName){
 			document.querySelector('#userName').focus();
@@ -32,20 +33,23 @@ export default function JoinForm() {
 			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
 		}
 
-		//if(!confirm(`회원 가입 하시겠습니까?`)) {
-			cmm.requestApi(
-				'post',
-				adminUrl.JOIN,
-				cmm.getJsonFromForm(document.querySelector('#frmJoin')),
-				res => {
-					if (res.success) {
-						alert('정상 처리 되었습니다');
-						history.push('sign-in');
-					}
-				},
-				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-			)
-		//}
+		cmm.confirmMessage('회원 관리', '회원 가입 하시겠습니까?')
+			.then(isOk => {
+				if(isOk){
+					cmm.requestApi(
+						'post',
+						adminUrl.JOIN,
+						cmm.getJsonFromForm(document.querySelector('#frmJoin')),
+						res => {
+							if (res.success) {
+								alert('정상 처리 되었습니다');
+								history.push('sign-in');
+							}
+						},
+						//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+					)
+				}
+			});
 	}
 
 	function idCheck(e){
