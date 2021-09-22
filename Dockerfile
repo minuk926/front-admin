@@ -1,12 +1,12 @@
 # Base image define
 FROM node:14 as builder
 
-# 추가적으로 필요한 파일 다운로드
-#WORKDIR 'D:/workspace/git/inpix/front-admin'
 WORKDIR 'usr/src/app'
-COPY package.json .
+# 종속성만 먼저 build : cache 사용
+COPY package.json ./
 RUN npm install
 
+# 변경된 소스 적용
 COPY ./ ./
 RUN npm run build
 
