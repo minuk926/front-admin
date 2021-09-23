@@ -7,7 +7,7 @@ const SweetAlert = withReactContent(Swal);
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
-
+console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		try {
 			const res = await axios({
 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨

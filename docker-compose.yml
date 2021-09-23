@@ -5,10 +5,10 @@ services:
       dockerfile: Dockerfile.dev
       context: .
     ports:
-      - "8081:3000"
-    volumes:
-      - /usr/src/app/node_modules
-      - ./:/usr/src/app
+      - "8080:3000"
+#    volumes:
+#      - /usr/src/app/node_modules
+#      - ./:/usr/src/app
     stdin_open: true
 
 #  nginx:
