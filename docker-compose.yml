@@ -1,33 +1,41 @@
 version: "3"
 services:
-  frontend:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./frontend
-    volumes:
-      - /app/node_modules
-      - ./frontend:/usr/src/app
-    stdin_open: true
-
-  nginx:
-    restart: always
+  front-admin:
+    container_name: front-admin
     build:
       dockerfile: Dockerfile
-      context: ./nginx
+      context: .
     ports:
-      - "3000:80"
-
-  backend:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./backend
-    container_name: app_backend
-    volumes:
-      - /app/node_modules
-      - ./backend:/app
+      - "80:80"
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: johnahn777
-      MYSQL_DATABASE: myapp
-      MYSQL_PORT: 3306
+      - TARGET_DOMAIN=http://localhost:8090
+#    volumes:
+#      - /node_modules
+#      - ./:/usr/src/app
+    stdin_open: true
+
+  core-admin:
+    container_name: core-admin
+    build:
+      dockerfile: ../core/Dockerfile2
+      context: ../core
+    ports:
+      - "8090:8090"
+#    volumes:
+#      - /app/node_modules
+#      - ./backend:/app
+#    environment:
+#      MYSQL_HOST: mysql
+#      MYSQL_USER: root
+#      MYSQL_ROOT_PASSWORD: johnahn777
+#      MYSQL_DATABASE: myapp
+#      MYSQL_PORT: 3306
+#
+#
+#  nginx:
+#    restart: always
+#    build:
+#      dockerfile: ../Dockerfile
+#      context: ./nginx
+#    ports:
+#      - "3000:80"

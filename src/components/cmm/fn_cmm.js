@@ -10,13 +10,13 @@ const fn_cmm = {
 
 		try {
 			const res = await axios({
-					url: process.env.REACT_APP_API+url,
-				    method,
-					data,
-				    headers,
-				    withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-				}
-			);
+				url: process.env.REACT_APP_API + url,
+				method,
+				data,
+				headers,
+				//mode: 'no-cors',
+				withCredentials: true //process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+			});
 			if(res.status === 200 && res.data.success){
 				console.log(JSON.stringify(res.data));
 				callback(res.data);

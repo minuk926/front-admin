@@ -10,4 +10,5 @@ RUN npm install
 COPY ./ ./
 # 시작시 실행될 명령어
 
+EXPOSE 3000
 CMD ["npm", "run", "start"]
