@@ -10,11 +10,12 @@ const fn_cmm = {
 
 		try {
 			const res = await axios({
+				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
 				url: process.env.NODE_ENV === 'development'? url : process.env.REACT_APP_API + url,
 				method,
 				data,
 				headers,
-				//mode: 'no-cors',
+				// proxy cors : true, 운영은 false
 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
 			});
 			if(res.status === 200 && res.data.success){
