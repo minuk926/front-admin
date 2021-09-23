@@ -3,33 +3,15 @@ services:
   frontend:
     container_name: front-admin
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: .
     ports:
-      - "8080:8080"
-#    volumes:
-#      - /node_modules
-#      - ./:/usr/src/app
+      - "8081:3000"
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
     stdin_open: true
 
-  backend:
-    container_name: core-admin
-    build:
-      dockerfile: ../core/Dockerfile2
-      context: ../core
-    ports:
-      - "8090:8090"
-#    volumes:
-#      - /app/node_modules
-#      - ./backend:/app
-#    environment:
-#      MYSQL_HOST: mysql
-#      MYSQL_USER: root
-#      MYSQL_ROOT_PASSWORD: johnahn777
-#      MYSQL_DATABASE: myapp
-#      MYSQL_PORT: 3306
-#
-#
 #  nginx:
 #    restart: always
 #    build:
