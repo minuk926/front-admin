@@ -1,7 +1,7 @@
 # Base image define
 FROM node:14 as builder
 
-WORKDIR 'usr/src/app'
+WORKDIR '/usr/src/app'
 # 종속성만 먼저 build : cache 사용
 COPY package.json ./
 RUN npm install
