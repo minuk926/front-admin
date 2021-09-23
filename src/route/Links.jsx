@@ -69,9 +69,10 @@ export default function Links() {
 			</div>
 
 			<div className="set">
-				<h2>title</h2>
+				<h2>괸리자</h2>
 				<ul className="links">
-					<li><NavLink to="">. <p>.</p></NavLink></li>
+					<li><NavLink to="/admin">Admin <p>관리자</p></NavLink></li>
+					<li><NavLink to="/admin-member-list">AdminMemberList<p>회원관리</p></NavLink></li>
 				</ul>
 			</div>
 		</div>
