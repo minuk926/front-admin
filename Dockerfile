@@ -14,13 +14,7 @@ RUN npm run build
 #CMD ["node", "App.js"]
 
 FROM nginx
-# Install logrotate
-#RUN apk add --no-cache logrotate
-#COPY ./nginx.conf /etc/nginx/nginx.conf
-#COPY ./logrotate.conf /etc/logrotate.conf
-#COPY ./script.sh /script.sh
-#RUN chmod +x /script.sh
-COPY default.conf /etc/nginx/conf.d/default.conf
+#COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html

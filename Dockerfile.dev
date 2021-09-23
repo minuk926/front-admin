@@ -8,7 +8,6 @@ RUN npm install
 
 # 변경된 소스 적용
 COPY ./ ./
-# 시작시 실행될 명령어
+# 시작시 실행될 명령어cd /
 
-EXPOSE 3000
 CMD ["npm", "run", "start"]
