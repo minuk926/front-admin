@@ -1,52 +1,20 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import {
-  BriefcaseIcon,
-  CalendarIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  LocationMarkerIcon,
-  PencilIcon,
-} from '@heroicons/react/solid'
-import { Menu, Transition } from '@headlessui/react'
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+export default function FindPw() {
+	return (
 
-export default function Example() {
-  return (
-    <div className="flex items-center justify-between">
-      <div className="flex-1 min-w-0">
-        <nav className="flex" aria-label="Breadcrumb">
-          <ol role="list" className="flex items-center space-x-4">
-            <li>
-              <div className="flex">
-                <a href="#" className="text-sm font-medium text-gray-300 hover:text-white">
-                  Jobs
-                </a>
-              </div>
-            </li>
 
-          </ol>
-        </nav>
+		//  준비중
+		<div className="min-h-screen flex flex-col items-center justify-center hover:bg-gray-200 transition py-12 px-4 sm:px-6 lg:px-8">
+			<div className="mb-6 text-center text-3xl font-extrabold text-indigo-600 animate-bounce ">작업주우우웅웅~</div>
+			<div className="text-center">
+					<svg xmlns="http://www.w3.org/2000/svg" className="h-32 text-indigo-600  animate-spin " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+				</svg>
 
-      </div>
-      <div className="mt-5 flex lg:mt-0 lg:ml-4">
-        <span className="hidden sm:block">
-          <button
-            type="button"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
-          >
-            <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
-            Edit
-          </button>
-        </span>
+			</div>
+		</div>
+		// 준비중
 
-      </div>
-    </div>
-  )
+
+	)
 }
