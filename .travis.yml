@@ -7,10 +7,11 @@ services:
 
 before_install:
   - echo "Start creating an image with Dockerfile..."
-  - docker build -t inpix/front-admin .
+#  - docker build -t inpix/front-admin .
 
 script:
-  - docker run -e CI=true inpix/front-admin npm test -- --coverage
+#  - docker run -e CI=true inpix/front-admin npm test -- --coverage
+  - docker build -t inpix/front-admin .
 
 after_success:
   - echo "Test Success"
