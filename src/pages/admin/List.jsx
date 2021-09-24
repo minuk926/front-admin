@@ -1,73 +1,20 @@
 
-export default function List() {
-  return (
-    <div className="flex flex-col m-10">
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-y-2 divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    아이디
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    이름
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    휴대폰번호
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    이메일
-                  </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">수정</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-
-                          <div className="text-sm text-left font-medium text-gray-900">smashpop</div>
-
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-left text-gray-900">홍철</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-left text-gray-500">010-9167-6731</div>
-                    </td>
-                    <td className="px-6 py-4 text-left whitespace-nowrap text-sm text-gray-500">ㄴㅁㅇㄹㄴㅇ</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        수정
-                      </a>
-                    </td>
-                  </tr>
+export default function FindPw() {
+	return (
 
 
-              </tbody>
+		//  준비중
+		<div className="min-h-screen flex flex-col items-center justify-center hover:bg-gray-200 transition py-12 px-4 sm:px-6 lg:px-8">
+			<div className="mb-6 text-center text-3xl font-extrabold text-indigo-600 animate-bounce ">작업주우우웅웅~</div>
+			<div className="text-center">
+					<svg xmlns="http://www.w3.org/2000/svg" className="h-32 text-indigo-600  animate-spin " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+				</svg>
 
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+			</div>
+		</div>
+		// 준비중
+
+
+	)
 }
