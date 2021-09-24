@@ -15,5 +15,5 @@ RUN npm run build
 
 FROM nginx as runner
 #COPY default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+EXPOSE 80 443
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html

@@ -14,7 +14,7 @@ script:
   - docker build -t inpix/front-admin .
 
 after_success:
-  - echo "Test Success"
+  - echo "Front Application Success"
 #  - docker build -t smileajw1004/docker-frontend ./frontend
 #  - docker build -t smileajw1004/docker-backend ./backend
 #  - docker build -t smileajw1004/docker-nginx ./nginx
