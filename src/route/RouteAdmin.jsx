@@ -16,6 +16,7 @@ import List from "../pages/admin/List";
 import View from "../pages/admin/View";
 import Modify from "../pages/admin/Modify";
 import Links from "./Links";
+import NotFound from "../pages/NotFound";
 
 export default function RouteAdmin() {
 	return (
@@ -38,6 +39,7 @@ export default function RouteAdmin() {
 				<Route path="/view" component={View}/>
 				<Route path="/modify" component={Modify}/>
 				<Route path="/" exact component={Links}/>
+				<Route component={NotFound}/>
 			</Switch>
 		</BrowserRouter>
 	);

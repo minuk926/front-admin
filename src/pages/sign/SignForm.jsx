@@ -8,7 +8,7 @@ import {useState} from "react";
 
 export default function SignForm() {
 	let history = useHistory();
-
+console.log(history)
 	const [userId, setUserId] = useState();
 	const [userPswd, setUserPswd] = useState();
 
@@ -76,7 +76,7 @@ export default function SignForm() {
 				if(res.success){
 					console.log(JSON.stringify(res));
 					alert(`로그인완료`);
-					history.push('/');
+					history.push('/admin');
 				}
 			}
 		).then()
