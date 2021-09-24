@@ -7,16 +7,17 @@ const SweetAlert = withReactContent(Swal);
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
-
+console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		try {
 			const res = await axios({
-					url: process.env.REACT_APP_API+url,
-				    method,
-					data,
-				    headers,
-				    withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-				}
-			);
+				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
+				url: process.env.NODE_ENV === 'development'? url : process.env.REACT_APP_API + url,
+				method,
+				data,
+				headers,
+				// proxy cors : true, 운영은 false
+				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+			});
 			if(res.status === 200 && res.data.success){
 				console.log(JSON.stringify(res.data));
 				callback(res.data);
