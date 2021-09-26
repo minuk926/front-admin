@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Check out source code
       uses: actions/checkout@v2
 
     - name: Configure AWS credentials
@@ -34,7 +34,8 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         # ECR리포지토리 이름
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        IMAGE_TAG: ${{ github.sha }}
+        #${{ github.sha }}
+        IMAGE_TAG: latest
       run: |
         # Build a docker container
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
