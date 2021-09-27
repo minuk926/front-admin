@@ -19,6 +19,7 @@ export default function JoinForm() {
 
 	const saveJoin = (e) => {
 		e.preventDefault();
+
 		if(!idCheck()) return false;
 		if(!userName){
 			document.querySelector('#userName').focus();
@@ -29,23 +30,29 @@ export default function JoinForm() {
 
 		//console.log(`password=[${password}], password2=[${password2}]`)
 		if(userPswd !== userPswd2) {
-			return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
+			cmm.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
+				.then();
+			document.querySelector('#userPswd2').focus();
+			return false;
 		}
 
-		//if(!confirm(`회원 가입 하시겠습니까?`)) {
-			cmm.requestApi(
-				'post',
-				adminUrl.JOIN,
-				cmm.getJsonFromForm(document.querySelector('#frmJoin')),
-				res => {
-					if (res.success) {
-						alert('정상 처리 되었습니다');
-						history.push('sign-in');
-					}
-				},
-				//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-			)
-		//}
+		cmm.confirmMessage( '회원 가입 하시겠습니까?', '회원가입')
+			.then(isOk => {
+				if(isOk){
+					cmm.requestApi(
+						'post',
+						adminUrl.JOIN,
+						cmm.getJsonFromForm(document.querySelector('#frmJoin')),
+						res => {
+							if (res.success) {
+								cmm.alertMessage('정상 처리 되었습니다', '회원가입')
+									.then(r => history.push('sign-in'));
+							}
+						},
+						//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+					).then()
+				}
+			});
 	}
 
 	function idCheck(e){
@@ -87,12 +94,13 @@ export default function JoinForm() {
 		}
 
 		if(/(\w)\1\1\1/.test(userPswd)){
-			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
+			cmm.alertMessage('같은 문자를 4번 이상 사용하실 수 없습니다.', '회원가입').then();
 			return false;
 		}
 
 		if(userPswd.search(userId) > -1){
 			alert("비밀번호에 아이디가 포함되었습니다.");
+			cmm.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}
 		return true;

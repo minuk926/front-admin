@@ -1,5 +1,6 @@
 import {LockClosedIcon} from '@heroicons/react/solid';
 import {useHistory} from "react-router-dom";
+import cmm from "components/cmm/fn_cmm";
 
 
 export default function Login() {
@@ -10,15 +11,14 @@ export default function Login() {
 	}
 
 	function googleLogin() {
-		alert('googleLogin(추후 지원 예정)');
+		cmm.alertMessage("googleLogin(추후 지원 예정)").then(r => r);
 	}
 
 	function kakaoLogin() {
-		alert('kakaoLogin(추후 지원 예정)');
+		cmm.alertMessage("kakaoLogin(추후 지원 예정)").then(r => r);
 	}
 
 	return (
-
 
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-5">
@@ -70,14 +70,15 @@ export default function Login() {
 						아이디 로그인
 					</button>
 				</div>
-				<div>
 
+				<div>
 					<p className="text-center text-xs text-gray-600 pt-5">
 						로그인/회원 관련 궁금하신 사항이 있다면?
 					</p>
 					<a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline ">자주 묻는 질문 바로가기></a>
 				</div>
 			</div>
+
 		</div>
 
 	)

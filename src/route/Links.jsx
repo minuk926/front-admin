@@ -4,19 +4,7 @@ export default function Links() {
 	return (
 
 		<body className="m-20 text-left">
-		code test area
 
-		<div className="p-10 mb-10 w-full bg-gray-100 hover:bg-gray-200 transition">
-
-			<span className="float-left mr-2">
-				<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-				</svg>
-			</span>
-
-			<div className="">Sample text1 화이팅</div>
-
-		</div>
 
 		<div className="links flex space-x-0">
 
@@ -37,7 +25,6 @@ export default function Links() {
 					<li><NavLink to="/find-pw">FindPW<p>비밀번호 찾기</p></NavLink></li>
 					<li><NavLink to="/find-pw-result">FindPW-Result<p>비밀번호 찾기 결과</p></NavLink></li>
 					<li><NavLink to="/find-pw-fail">FindPW-Fail<p>비밀번호 찾기 결과실패</p></NavLink></li>
-
 					<li><NavLink to="/member-modify">MemberModify<p>회원정보수정</p></NavLink></li>
 
 				</ul>
@@ -46,9 +33,7 @@ export default function Links() {
 			<div className="set">
 				<h2>게시판</h2>
 				<ul>
-					<li><NavLink to="/">List <p>List</p></NavLink></li>
-					<li><NavLink to="/">View <p>View</p></NavLink></li>
-					<li><NavLink to="/">Modify <p>Modify</p></NavLink></li>
+
 					<li><NavLink to="">. <p>.</p></NavLink></li>
 					<li><NavLink to="">. <p>.</p></NavLink></li>
 				</ul>
@@ -69,9 +54,13 @@ export default function Links() {
 			</div>
 
 			<div className="set">
-				<h2>title</h2>
+				<h2>관리자</h2>
 				<ul className="links">
-					<li><NavLink to="">. <p>.</p></NavLink></li>
+					<li><NavLink to="/admin">Admin <p>관리자</p></NavLink></li>
+					<li><NavLink to="/admin-member-list">AdminMemberList<p>회원관리 List</p></NavLink></li>
+					<li><NavLink to="/list">List <p>List</p></NavLink></li>
+					<li><NavLink to="/view">View <p>View</p></NavLink></li>
+					<li><NavLink to="/modify">Modify <p>Modify</p></NavLink></li>
 				</ul>
 			</div>
 		</div>

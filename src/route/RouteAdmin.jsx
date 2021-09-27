@@ -10,7 +10,13 @@ import FindPw from "../pages/sign/FindPw";
 import FindPwResult from "../pages/sign/FindPwResult";
 import FindPwFail from "../pages/sign/FindPwFail";
 import MemberModify from "../pages/sign/MemberModify";
+import Admin from "../pages/admin/Admin";
+import AdminMemberList from "../pages/admin/AdminMemberList";
+import List from "../pages/admin/List";
+import View from "../pages/admin/View";
+import Modify from "../pages/admin/Modify";
 import Links from "./Links";
+import NotFound from "../pages/NotFound";
 
 export default function RouteAdmin() {
 	return (
@@ -27,7 +33,13 @@ export default function RouteAdmin() {
 				<Route path="/find-pw-result" component={FindPwResult}/>
 				<Route path="/find-pw-fail" component={FindPwFail}/>
 				<Route path="/member-modify" component={MemberModify}/>
+				<Route path="/admin" component={Admin}/>
+				<Route path="/admin-member-list" component={AdminMemberList}/>
+				<Route path="/list" component={List}/>
+				<Route path="/view" component={View}/>
+				<Route path="/modify" component={Modify}/>
 				<Route path="/" exact component={Links}/>
+				<Route component={NotFound}/>
 			</Switch>
 		</BrowserRouter>
 	);

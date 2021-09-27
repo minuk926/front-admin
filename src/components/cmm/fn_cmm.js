@@ -1,18 +1,23 @@
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content'
+
+const SweetAlert = withReactContent(Swal);
 
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
-
+console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		try {
 			const res = await axios({
-					url: process.env.REACT_APP_API+url,
-				    method,
-					data,
-				    headers
-					//headers? headers: header : null
-				}
-			);
+				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
+				url: process.env.NODE_ENV === 'development'? url : process.env.REACT_APP_API + url,
+				method,
+				data,
+				headers,
+				// proxy cors : true, 운영은 false
+				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+			});
 			if(res.status === 200 && res.data.success){
 				console.log(JSON.stringify(res.data));
 				callback(res.data);
@@ -41,6 +46,27 @@ const fn_cmm = {
 		}
 		return JSON.stringify(result)
 	},
+
+	alertMessage: async (message, title = '관리자 시스템') => {
+		return await SweetAlert.fire({
+			title: `<p>${title}</p>`,
+			html: `<p>${message}</p>`,
+			footer: 'Copyright 2018',
+			timer: 1500
+		}).then(res => res)
+	},
+
+	confirmMessage: async(message = '진행 하시겠습니까?', title = '관리자 시스템') => {
+		return await SweetAlert.fire({
+			title: `<p>${title}</p>`,
+			html: `<p>${message}</p>`,
+			footer: 'Copyright 2021',
+			showCancelButton: true,
+			confirmButtonText: "예",
+			cancelButtonText: "아니오",
+		}).then(res => res.isConfirmed);
+	},
+
 
 	/**
 	 * Returns a cookie value if a name is specified. Otherwise returns the entire cookies as an object
