@@ -56,11 +56,11 @@ export default function Links() {
 			<div className="set">
 				<h2>관리자</h2>
 				<ul className="links">
-					<li><NavLink to="/admin">Admin <p>관리자</p></NavLink></li>
-					<li><NavLink to="/admin-member-list">AdminMemberList<p>회원관리 List</p></NavLink></li>
-					<li><NavLink to="/list">List <p>List</p></NavLink></li>
-					<li><NavLink to="/view">View <p>View</p></NavLink></li>
-					<li><NavLink to="/modify">Modify <p>Modify</p></NavLink></li>
+					<li><NavLink to="/admin">Admin<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span> <p>관리자</p></NavLink></li>
+					<li><NavLink to="/admin-member-list">AdminMemberList<span className="tag"><span className="pong1"> </span><span className="pong2"> </span></span><p>회원관리 List</p></NavLink></li>
+					<li><NavLink to="/admin-member-view">AdminMemberView<p>회원관리 View</p></NavLink></li>
+					<li><NavLink to="/list">List <p>작업중</p></NavLink></li>
+					<li><NavLink to="/modify">Modify <p>작업중</p></NavLink></li>
 				</ul>
 			</div>
 		</div>

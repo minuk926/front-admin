@@ -128,7 +128,7 @@ export default function AdminMemberList() {
 
       {/* Static sidebar for desktop */}
       <div className="hidden md:flex md:flex-shrink-0">
-        <div className="flex flex-col w-40">
+        <div className="flex flex-col w-48">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
@@ -346,12 +346,11 @@ export default function AdminMemberList() {
                               <td className="px-3 py-4 text-center whitespace-nowrap text-sm text-gray-500">21-09-23</td>
 
                               <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
-                               <button
-                                type="button"
-                                className="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                               <a href="/admin-member-view"><button
+                                type="button" className="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                               >
                                 수정
-                              </button>
+                              </button></a>
                               </td>
                             </tr>
 
