@@ -1,12 +1,21 @@
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-
 name: Deploy to Amazon ECS
+on:
+#  push:
+#    branches:
+#      - master
+#  pull_request:
+#    branches:
+#      - master
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'debug'
+      tags:
+        description: 'Run action tags'
+        required: true
+        default: 'Run action tags'
 
 jobs:
   deploy:
