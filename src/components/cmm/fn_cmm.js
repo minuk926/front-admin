@@ -1,37 +1,123 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content'
+import {useCallback, useEffect, useState} from "react";
 
 const SweetAlert = withReactContent(Swal);
+
+axios.interceptors.request.use(function(config) {
+
+	Swal.fire({
+		title: '<img src="/img/roll.gif" style="object-fit: contain; margin-right: 10px;">데이터 수신중<style>.swal2-popup{width: 220px!important; height: 69px!important;    min-height: auto!important;    width: 340px!important;-webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);}</style>',
+		showConfirmButton: false,
+		allowOutsideClick: false
+	});
+	return config;
+}, function(error) {
+	Swal.close();
+	console.log("ERROR :: request loading finished!!!");
+	return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function(response) {
+	Swal.close({});
+	return Promise.resolve(response);
+}, function(error) {
+	Swal.close();
+	console.log("ERROR :: response loading finished!!!", error);
+	return Promise.reject(error);
+});
 
 const fn_cmm = {
 	requestApi: async (method, url, data, callback, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
-console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
+		console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		try {
 			const res = await axios({
 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
-				url: process.env.NODE_ENV === 'development'? url : process.env.REACT_APP_API + url,
+				url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
 				method,
 				data,
 				headers,
 				// proxy cors : true, 운영은 false
 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
 			});
-			if(res.status === 200 && res.data.success){
+			if (res.status === 200 && res.data.success) {
 				console.log(JSON.stringify(res.data));
 				callback(res.data);
-			}else{
+			} else {
 				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
 				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);
 				callback(res.data);
 			}
-		}catch(e){
+		} catch (e) {
 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
 			alert(e)
 			callback(e);
+
+		} finally {
+
 		}
 	},
+
+
+	// RequestApi: (method, url, data, callback, headers) => {
+	// 	const [payload, setPayload] = useState(null);
+	// 	const [loading, setLoading] = useState(true);
+	// 	const [error, setError] = useState("");
+	//
+	// 	const CallUrl = async () => {
+	// 		try {
+	// 			headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
+	// 			console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
+	// 			const {res} = await axios({
+	// 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
+	// 				url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
+	// 				method,
+	// 				data,
+	// 				headers,
+	// 				// proxy cors : true, 운영은 false
+	// 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+	// 			});
+	// 			if (res.status === 200 && res.data.success) {
+	// 				console.log(JSON.stringify(res.data));
+	// 				callback(setPayload(res.data));
+	// 			} else {
+	// 				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
+	// 				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);
+	// 				callback(res.data);
+	// 			}
+	// 			setPayload(res);
+	//
+	// 		} catch (e) {
+	// 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
+	// 			alert(e)
+	// 			setError(e);
+	// 		} finally {
+	// 			setLoading(false);
+	// 		}
+	// 	}
+	// 	useEffect(() => {
+	// 		const {payload, loading, error} = CallUrl();
+	// 		//CallUrl();
+	// 	}, [])
+	// 	//return {payload, loading, error};
+	//
+	// },
+
+	/**
+	 *
+	 * @param defaultValue
+	 * @returns {{onChange: onChange, value: unknown}}
+	 */
+	useInput: (defaultValue = null) => {
+		const [value, setValue] = useState(defaultValue);
+		const onChange = e => {
+			setValue(e.target.value);
+		}
+		return {value, onChange};
+	},
+
 
 	/**
 	 * form 데이타를 JSON 으로 return
