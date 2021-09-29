@@ -1,19 +1,26 @@
-import {Fragment, useRef, useState} from 'react';
+import {Fragment, useEffect, useRef, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import cmm from "../../components/cmm/fn_cmm";
+import fn from "../../components/cmm/fn_cmm";
 import adminUrl from "../../components/cmm/admin_url";
 import {useHistory} from "react-router-dom";
 
 export default function JoinForm() {
 	const history = useHistory();
 	const [open, setOpen] = useState(false);
-	const [userId, setUserId] = useState("");
-	const [userPswd, setUserPswd] = useState("");
-	const [userPswd2, setUserPswd2] = useState("");
-	const [userName, setUserName] = useState("");
-	const [userEmail, setUserEmail] = useState("");
-	const [userMbl, setUserMbl] = useState("");
-	const [mobileAuth, setMobileAuth] = useState("");
+	//const [userId, setUserId] = useState("");
+	//const [userPswd, setUserPswd] = useState("");
+	//const [userPswd, setUserPswd2] = useState("");
+	// const [userName, setUserName] = useState("");
+	// const [userEmail, setUserEmail] = useState("");
+	// const [userMbl, setUserMbl] = useState("");
+	// const [mobileAuth, setMobileAuth] = useState("");
+	const userId = fn.useInput("");
+	const userPswd = fn.useInput("");
+	const userPswd2 = fn.useInput("");
+	const userName = fn.useInput("");
+	const userEmail = fn.useInput("");
+	const userMbl = fn.useInput("");
+	const mobileAuth = fn.useInput("");
 
 	const cancelButtonRef = useRef(null);
 
@@ -30,22 +37,22 @@ export default function JoinForm() {
 
 		//console.log(`password=[${password}], password2=[${password2}]`)
 		if(userPswd !== userPswd2) {
-			cmm.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
+			fn.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
 				.then();
 			document.querySelector('#userPswd2').focus();
 			return false;
 		}
 
-		cmm.confirmMessage( '회원 가입 하시겠습니까?', '회원가입')
+		fn.confirmMessage( '회원 가입 하시겠습니까?', '회원가입')
 			.then(isOk => {
 				if(isOk){
-					cmm.requestApi(
+					fn.requestApi(
 						'post',
 						adminUrl.JOIN,
-						cmm.getJsonFromForm(document.querySelector('#frmJoin')),
+						fn.getJsonFromForm(document.querySelector('#frmJoin')),
 						res => {
 							if (res.success) {
-								cmm.alertMessage('정상 처리 되었습니다', '회원가입')
+								fn.alertMessage('정상 처리 되었습니다', '회원가입')
 									.then(r => history.push('sign-in'));
 							}
 						},
@@ -94,17 +101,18 @@ export default function JoinForm() {
 		}
 
 		if(/(\w)\1\1\1/.test(userPswd)){
-			cmm.alertMessage('같은 문자를 4번 이상 사용하실 수 없습니다.', '회원가입').then();
+			fn.alertMessage('같은 문자를 4번 이상 사용하실 수 없습니다.', '회원가입').then();
 			return false;
 		}
 
 		if(userPswd.search(userId) > -1){
 			alert("비밀번호에 아이디가 포함되었습니다.");
-			cmm.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
+			fn.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}
 		return true;
 	}
+
 
 	return (
 
@@ -128,7 +136,7 @@ export default function JoinForm() {
 
 								<input id="userId" name="userId" type="text" autoComplete="username" required
 									   className="input-basic flex-initial w-full"
-									   placeholder="아이디" value={userId} onChange={e=>setUserId(e.target.value)}/>
+									   placeholder="아이디" {...userId}/>
 
 								<button onClick={idCheck} type="button"
 										className="bt-gray flex-initial w-1/3 ">
@@ -140,7 +148,7 @@ export default function JoinForm() {
 						</div>
 						<div>
 							<label htmlFor="userName" className="input-label">이름</label>
-							<input id="userName" name="userName" value={userName} onChange={e=>setUserName(e.target.value)} type="text"
+							<input id="userName" name="userName" {...userName} type="text"
 								   className="input-basic w-full"
 								   placeholder="실명을 입력하세요."/>
 						</div>
@@ -150,7 +158,7 @@ export default function JoinForm() {
 							<div className="flex space-x-2">
 								<input id="userMbl" name="userMbl" type="text" autoComplete="userMbl" required
 									   className="input-basic flex-initial w-full"
-									   placeholder="'-'구분없이 입력" value={userMbl} onChange={e=>setUserMbl(e.target.value)}/>
+									   placeholder="'-'구분없이 입력" {...userMbl} />
 								<button onClick={moblieCheck} type="button"
 										className="bt-gray flex-initial w-1/3 ">
 									인증번호 전송
@@ -163,7 +171,7 @@ export default function JoinForm() {
 							<label htmlFor="mobileAuth" className="input-label">인증번호</label>
 							<input id="mobileAuth" name="mobileAuth" type="text"
 								   className="input-basic w-full"
-								   placeholder="인증번호 입력" value={mobileAuth} onChange={e=>setMobileAuth(e.target.value)}/>
+								   placeholder="인증번호 입력" {...mobileAuth}/>
 							<span id="" className="input-msg-blue">번호 인증 완료</span>
 							<span id="" className="input-msg-red">인증번호가 틀렸습니다. 다시 확인해주세요.</span>
 						</div>
@@ -172,29 +180,29 @@ export default function JoinForm() {
 							<label htmlFor="userPswd" className="input-label">비밀번호</label>
 							<input id="userPswd" name="userPswd" type="password" autoComplete="userPswd" required
 								   className="input-basic w-full"
-								   placeholder="비밀번호" value={userPswd} onChange={e=>setUserPswd(e.target.value)}/>
+								   placeholder="비밀번호" {...userPswd}/>
 							<span id="spanPasswordValid" className="input-msg-red">8자 이상, 숫자와 특수문자 포함을 권장합니다.</span>
 						</div>
 						<div>
 							<label htmlFor="userPswd2" className="input-label">비밀번호 확인</label>
 							<input id="userPswd2" name="userPswd2" type="password" required
 								   className="input-basic w-full"
-								   placeholder="비밀번호 확인" value={userPswd2} onChange={e=>setUserPswd2(e.target.value)}/>
+								   placeholder="비밀번호 확인" {...userPswd2}/>
 							<span className="input-msg-red">비밀번호와 비밀번호확인이 일치하지 않습니다.</span>
 						</div>
 						<div>
 							<label htmlFor="userEmail" className="input-label">이메일</label>
 							<input id="userEmail" name="userEmail" type="email"
 								   className="input-basic w-full"
-								   placeholder="이메일" value={userEmail} onChange={e=>setUserEmail(e.target.value)}/>
+								   placeholder="이메일" {...userEmail}/>
 							<span id="spanTelValid" className="input-msg-red">규칙에 맞는 이메일 주소를 입력해 주세요.</span>
 						</div>
-						{/*<div>*/}
-						{/*	<label htmlFor="memo" className="input-label">하고싶은 말</label>*/}
-						{/*	<input id="memo" name="memo" type="text"*/}
-						{/*		   className="input-basic w-full"*/}
-						{/*		   placeholder="하고싶은 말"/>*/}
-						{/*</div>*/}
+						<div>
+							<label htmlFor="memo" className="input-label">하고싶은 말</label>
+							<input id="memo" name="memo" type="text"
+								   className="input-basic w-full"
+								   placeholder="하고싶은 말"/>
+						</div>
 
 					</div>
 
@@ -239,7 +247,7 @@ export default function JoinForm() {
 							<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
 						</Transition.Child>
 
-						{/* This element is to trick the browser into centering the modal contents. */}
+						 This element is to trick the browser into centering the modal contents.
 						<span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
@@ -295,10 +303,6 @@ export default function JoinForm() {
 					</div>
 				</Dialog>
 			</Transition.Root>
-
-
 		</div>
-
-
 	)
 }

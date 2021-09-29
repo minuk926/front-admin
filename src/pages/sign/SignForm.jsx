@@ -1,16 +1,12 @@
 import {useHistory} from "react-router-dom";
 import {LockClosedIcon} from '@heroicons/react/solid';
-import cmm from "components/cmm/fn_cmm";
-
-
 import adminUrl from "components/cmm/admin_url";
-import {useState} from "react";
+import fn from "components/cmm/fn_cmm";
 
 export default function SignForm() {
 	let history = useHistory();
-console.log(history)
-	const [userId, setUserId] = useState();
-	const [userPswd, setUserPswd] = useState();
+	const userId = fn.useInput("");
+	const userPswd = fn.useInput("");
 
 	function goJoin(e) {
 		e.preventDefault();
@@ -18,6 +14,8 @@ console.log(history)
 	}
 
 	function login(e) {
+		console.log(userId);
+//return;
 		e.preventDefault();
 		//e.stopPropagation();
 
@@ -49,27 +47,27 @@ console.log(history)
 		// : 숫자, 특문, 영문 각 1개 이상 사용하여 8자리 이상 입력
 		const regExpPw = /^[0-9a-zA-Z~`!@#$%\^&*()-+=]{6,20}$/;
 
-		if(!userId || !regExpId.test(userId)){
-			cmm.alertMessage('id를 확인해 주세요.', '로그인')
+		if(!userId.value || !regExpId.test(userId.value)){
+			fn.alertMessage('id를 확인해 주세요.', '로그인')
 				.then();
 			document.querySelector('#userId').focus();
 			return false;
 		}
 //return false;
 
-		if(!userPswd || !regExpPw.test(userPswd)){
-			cmm.alertMessage('비밀번호를 확인해 주세요.', '로그인')
+		if(!userPswd.value || !regExpPw.test(userPswd.value)){
+			fn.alertMessage('비밀번호를 확인해 주세요.', '로그인')
 				.then();
 			document.querySelector('#userPswd').focus();
 			return false;
 		}
 
-		cmm.requestApi(
+		fn.requestApi(
 			'post',
 			adminUrl.LOGIN,
 			{
-				userId: userId,
-				userPswd: userPswd
+				userId: userId.value,
+				userPswd: userPswd.value
 			},
 			res => {
 				alert(JSON.stringify(res));
@@ -79,8 +77,16 @@ console.log(history)
 					history.push('/admin');
 				}
 			}
-		).then()
+		);
 	}
+
+
+
+	// const {payload, loading, error} = fn.RequestApi('post', adminUrl.LOGIN, {
+	// 	userId: 'minuk926',
+	// 	userPswd: 'minuk926'
+	// });
+
 
 	return (
 
@@ -99,14 +105,14 @@ console.log(history)
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<label htmlFor="userId" className="sr-only">아이디</label>
-							<input id="userId" name="userId" onChange={e=>setUserId(e.target.value)} value={userId} required
+							<input id="userId" name="userId" {...userId} required
 								   className="input-login w-full rounded-t-md"
 								   placeholder="아이디"/>
 
 						</div>
 						<div>
 							<label htmlFor="userPswd" className="sr-only">패스워드</label>
-							<input id="userPswd" name="userPswd" type="password" onChange={e=>setUserPswd(e.target.value)} value={userPswd} required
+							<input id="userPswd" name="userPswd" type="password" {...userPswd} required
 								   className="input-login w-full rounded-b-md"
 								   placeholder="패스워드"/>
 						</div>
@@ -145,6 +151,13 @@ console.log(history)
 					</p>
 				</div>
 			</div>
+
+
+			{/*{loading && <span>loading your cat</span>}*/}
+			{/*{!error && error && <span>{error}</span>}*/}
+			{/*{!loading && payload && <span>{payload.res.data.userId}</span>}*/}
+
+
 		</div>
 	)
 }
