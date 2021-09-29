@@ -8,7 +8,7 @@ const SweetAlert = withReactContent(Swal);
 axios.interceptors.request.use(function(config) {
 
 	Swal.fire({
-		title: '<img src="/img/roll.gif" style="object-fit: contain; margin-right: 10px;">데이터 수신중<style>.swal2-popup{width: 220px!important; height: 69px!important;    min-height: auto!important;    width: 340px!important;-webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);}</style>',
+		title: '<img src="/images/roll.gif" style="object-fit: contain; margin-right: 10px;">데이터 수신중<style>.swal2-popup{width: 220px!important; height: 69px!important;    min-height: auto!important;    width: 340px!important;-webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);}</style>',
 		showConfirmButton: false,
 		allowOutsideClick: false
 	});
