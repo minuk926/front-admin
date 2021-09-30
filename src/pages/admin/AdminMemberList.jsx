@@ -37,20 +37,22 @@ export default function AdminMemberList(userId) {
 
   const queryList = () => {
     let param = {
-      cmmUserDto: {
+      //cmmUserDto: {
 
       userId: searchParam.value,
-      },
-      pageable: {
-
+      //},
+      // pageable: {
+      //
+      pageSize: 10,
+      pageNumber: 1,
       page: 1,
       size: 10
       }
-    }
+
     fn.requestApi(
-        'post',
+        'get',
         adminUrl.GET_USER_LIST,
-        param
+        JSON.stringify(param)
         //fn.getJsonFromForm(document.querySelector('#frmJoin'))
         //{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
     ).then(res => {

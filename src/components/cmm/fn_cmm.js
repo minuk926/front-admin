@@ -35,14 +35,24 @@ const fn_cmm = {
 		console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		console.table(data)
 		try {
+			// let options = {
+			// 	url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
+			// 	method: method,
+			// 	headers: headers,
+			// 	// proxy cors : true, 운영은 false
+			// 	withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+			// };
+			// if(method.toLowerCase() === 'post') 	options.data = data;
+			// else
 			const res = await axios({
 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
 				url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
-				method,
-				data,
-				headers,
+				method: method,
+				data: data,
+				headers: headers,
 				// proxy cors : true, 운영은 false
 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+				timeout: 100000
 			}).then();
 			if (res.status === 200 && res.data.success) {
 				console.log(JSON.stringify(res.data));
@@ -197,6 +207,73 @@ const fn_cmm = {
 		);
 	},
 
+	/**
+	 * 현재 URL에서 파라메터 GET
+	 * @param name
+	 * @returns string
+	 */
+	getParameterByName: (name) => {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		let regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(window.location.search);
+		return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	},
+
+	/**
+	 * 현재 URL의 파라메터를 JSON으로 return
+	 * @returns {}
+	 */
+	getQuery: () => {
+		let url = document.location.href;
+		let qs = url.substring(url.indexOf('?') + 1).split('&');
+		let result = {}
+		for (let i = 0; i < qs.length; i++) {
+			qs[i] = qs[i].split('=');
+			result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+		}
+		return result;
+	},
+
+	/**
+	 * 현재 URL에서 파라메터 GET
+	 * @param name
+	 * @returns {string|number|null}
+	 */
+	urlParam: (name) => {
+		//var url = decodeURIComponent(window.location.href);
+		let results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		if (results == null) {
+			return null;
+		} else {
+			return results[1] || 0;
+		}
+	},
+
+
+
+	/**
+	 * 현재 URL에서 파라메터 GET
+	 * @param paramName
+	 * @returns {string}
+	 */
+	getParameters: (paramName) => {
+		// 리턴값을 위한 변수 선언
+		let returnValue;
+
+		// 현재 URL 가져오기
+		let url = window.location.href;
+
+		// get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔
+		let parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+
+		// 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return
+		for (let i = 0; i < parameters.length; i++) {
+			let varName = parameters[i].split('=')[0];
+			if (varName.toUpperCase() === paramName.toUpperCase()) {
+				returnValue = parameters[i].split('=')[1];
+				return decodeURIComponent(returnValue);
+			}
+		}
+	},
 
 	/**
 	 * Returns a cookie value if a name is specified. Otherwise returns the entire cookies as an object
