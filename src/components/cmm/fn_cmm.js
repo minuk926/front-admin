@@ -4,13 +4,14 @@ import withReactContent from 'sweetalert2-react-content'
 import {useCallback, useEffect, useState} from "react";
 
 const SweetAlert = withReactContent(Swal);
+let timerInterval;
 
 axios.interceptors.request.use(function(config) {
-	let timerInterval
 	Swal.fire({
 		title: 'Please Wait ...',
 		//html: '',
 		//imageUrl:
+		timer: 10000,
 		didOpen: () => Swal.showLoading()
 	}).then(r=>{})
 	return config;
@@ -21,9 +22,11 @@ axios.interceptors.request.use(function(config) {
 });
 
 axios.interceptors.response.use(function(response) {
-	//Swal.close();
+	// clearInterval(timerInterval)
+	Swal.close();
 	return Promise.resolve(response);
 }, error => {
+	// clearInterval(timerInterval)
 	Swal.close();
 	console.log("ERROR :: response loading finished!!!", error);
 	return Promise.reject(error);
@@ -62,8 +65,10 @@ const fn_cmm = {
 					html: `<p>${message} ${code}</p>`,
 					//footer: 'Copyright 2018',
 					timer: 3000
-				})
+				});
 			}
+			return res.data;
+
 		} catch (e) {
 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
 			await SweetAlert.fire({
@@ -73,7 +78,7 @@ const fn_cmm = {
 				footer: 'Copyright 2018',
 				timer: 3000
 			})
-
+			return e;
 		} finally {
 
 		}
