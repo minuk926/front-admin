@@ -1,10 +1,9 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content'
-import {useCallback, useEffect, useState} from "react";
+import {useState} from "react";
 
 const SweetAlert = withReactContent(Swal);
-let timerInterval;
 
 axios.interceptors.request.use(function(config) {
 	Swal.fire({
@@ -22,11 +21,9 @@ axios.interceptors.request.use(function(config) {
 });
 
 axios.interceptors.response.use(function(response) {
-	// clearInterval(timerInterval)
 	Swal.close();
 	return Promise.resolve(response);
 }, error => {
-	// clearInterval(timerInterval)
 	Swal.close();
 	console.log("ERROR :: response loading finished!!!", error);
 	return Promise.reject(error);
@@ -36,6 +33,7 @@ const fn_cmm = {
 	requestApi: async (method, url, data, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
 		console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
+		console.table(data)
 		try {
 			const res = await axios({
 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨

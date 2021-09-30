@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import {Fragment, useEffect, useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   CogIcon,
@@ -17,6 +17,8 @@ import {
   PencilIcon,
   SearchIcon,
 } from '@heroicons/react/solid'
+import fn from "components/cmm/fn_cmm";
+import adminUrl from "components/cmm/admin_url";
 
 const navigation = [
   { name: '처음으로', href: '/Admin', icon: HomeIcon, current: false },
@@ -29,8 +31,42 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function AdminMemberList() {
+export default function AdminMemberList(userId) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const searchParam = fn.useInput("");
+
+  const queryList = () => {
+    let param = {
+      cmmUserDto: {
+
+      userId: searchParam.value,
+      },
+      pageable: {
+
+      page: 1,
+      size: 10
+      }
+    }
+    fn.requestApi(
+        'post',
+        adminUrl.GET_USER_LIST,
+        param
+        //fn.getJsonFromForm(document.querySelector('#frmJoin'))
+        //{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+    ).then(res => {
+          if (res.success) {
+            console.log(res)
+            return res;
+          }
+        }
+    )
+  };
+	useEffect(() => {
+		const data = queryList;
+
+
+
+	}, []);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -201,19 +237,19 @@ export default function AdminMemberList() {
                             <select
                               className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                             >
-                              <option>아이디</option>
-                              <option>이름</option>
-                              <option>휴대폰번호</option>
+                              <option value="userId">아이디</option>
+                              <option value="userName">이름</option>
+                              <option value="userMbl">휴대폰번호</option>
                             </select>
                       </span>
                       <span>
-                       <input
+                       <input {...searchParam}
                           className="inline-flex items-center w-40 px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                         />
                         </span>
                       <span>
 
-                            <button
+                            <button onClick={queryList}
                               type="button"
                               className="inline-flex items-center px-2 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1  focus:ring-indigo-500"
                             >
