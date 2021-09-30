@@ -6,30 +6,31 @@ import {useCallback, useEffect, useState} from "react";
 const SweetAlert = withReactContent(Swal);
 
 axios.interceptors.request.use(function(config) {
-
+	let timerInterval
 	Swal.fire({
-		title: '<img src="/images/roll.gif" style="object-fit: contain; margin-right: 10px;">데이터 수신중<style>.swal2-popup{width: 220px!important; height: 69px!important;    min-height: auto!important;    width: 340px!important;-webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);}</style>',
-		showConfirmButton: false,
-		allowOutsideClick: false
-	});
+		title: 'Please Wait ...',
+		//html: '',
+		//imageUrl:
+		didOpen: () => Swal.showLoading()
+	}).then(r=>{})
 	return config;
-}, function(error) {
+}, error => {
 	Swal.close();
 	console.log("ERROR :: request loading finished!!!");
 	return Promise.reject(error);
 });
 
 axios.interceptors.response.use(function(response) {
-	Swal.close({});
+	//Swal.close();
 	return Promise.resolve(response);
-}, function(error) {
+}, error => {
 	Swal.close();
 	console.log("ERROR :: response loading finished!!!", error);
 	return Promise.reject(error);
 });
 
 const fn_cmm = {
-	requestApi: async (method, url, data, callback, headers) => {
+	requestApi: async (method, url, data, headers) => {
 		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
 		console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 		try {
@@ -41,19 +42,37 @@ const fn_cmm = {
 				headers,
 				// proxy cors : true, 운영은 false
 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-			});
+			}).then();
 			if (res.status === 200 && res.data.success) {
 				console.log(JSON.stringify(res.data));
-				callback(res.data);
+				await SweetAlert.fire({
+					title: `Inpix Administrator`,
+					html: `처리되었습니다`,
+					//footer: 'Copyright 2018',
+					timer: 500
+				})
+				return res.data;
 			} else {
 				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
-				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);
-				callback(res.data);
+				let code = res.data.code != null? `[${res.data.code}]`: "";
+				let message = res.data.message;
+
+				await SweetAlert.fire({
+					title: `Inpix Administrator`,
+					html: `<p>${message} ${code}</p>`,
+					//footer: 'Copyright 2018',
+					timer: 3000
+				})
 			}
 		} catch (e) {
 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
-			alert(e)
-			callback(e);
+			await SweetAlert.fire({
+				//title: `Error`,
+				icon: 'error',
+				html: `<p>${e}</p>`,
+				footer: 'Copyright 2018',
+				timer: 3000
+			})
 
 		} finally {
 
@@ -150,7 +169,29 @@ const fn_cmm = {
 			showCancelButton: true,
 			confirmButtonText: "예",
 			cancelButtonText: "아니오",
-		}).then(res => res.isConfirmed);
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			//confirmButtonClass: 'btn btn-success',
+			//cancelButtonClass: 'btn btn-danger',
+			//buttonsStyling: false
+		}).then(r =>
+			r.isConfirmed
+			// if(r.isConfirmed) {
+			// 	Swal.fire(
+			// 		`<p>${title}</p>`,
+			// 		'처리되었습니다',
+			// 		'success'
+			// 	)
+			// }
+			// if(r.isDismissed) {
+			// 	Swal.fire(
+			// 		`<p>${title}</p>`,
+			// 		'취소했습니다',
+			// 		'info'
+			// 	)
+			// }
+
+		);
 	},
 
 

@@ -121,7 +121,6 @@ export default function Admin() {
 		}
 
 		if(userPswd.search(userId) > -1){
-			alert("비밀번호에 아이디가 포함되었습니다.");
 			cmm.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}

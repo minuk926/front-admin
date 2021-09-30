@@ -2,6 +2,8 @@ import {useHistory} from "react-router-dom";
 import {LockClosedIcon} from '@heroicons/react/solid';
 import adminUrl from "components/cmm/admin_url";
 import fn from "components/cmm/fn_cmm";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function SignForm() {
 	let history = useHistory();
@@ -68,16 +70,13 @@ export default function SignForm() {
 			{
 				userId: userId.value,
 				userPswd: userPswd.value
-			},
-			res => {
-				alert(JSON.stringify(res));
-				if(res.success){
-					console.log(JSON.stringify(res));
-					alert(`로그인완료`);
-					history.push('/admin');
-				}
 			}
-		);
+		).then(res => {
+			if(res.success){
+				console.log(JSON.stringify(res));
+				history.push('/admin');
+			}
+		})
 	}
 
 

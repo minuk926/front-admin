@@ -49,15 +49,15 @@ export default function JoinForm() {
 					fn.requestApi(
 						'post',
 						adminUrl.JOIN,
-						fn.getJsonFromForm(document.querySelector('#frmJoin')),
-						res => {
+						fn.getJsonFromForm(document.querySelector('#frmJoin'))
+						//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+					).then(res => {
 							if (res.success) {
 								fn.alertMessage('정상 처리 되었습니다', '회원가입')
 									.then(r => history.push('sign-in'));
 							}
-						},
-						//{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-					).then()
+						}
+					)
 				}
 			});
 	}
@@ -106,7 +106,6 @@ export default function JoinForm() {
 		}
 
 		if(userPswd.search(userId) > -1){
-			alert("비밀번호에 아이디가 포함되었습니다.");
 			fn.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}
