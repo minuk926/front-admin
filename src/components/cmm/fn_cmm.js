@@ -155,6 +155,7 @@ const fn_cmm = {
 		}).then(r => r.isConfirmed);
 	},
 
+
 	/**
 	 * 현재 URL에서 파라메터 GET
 	 * @param name

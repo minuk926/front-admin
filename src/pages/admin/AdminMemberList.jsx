@@ -27,13 +27,32 @@ const navigation = [
   { name: '환경설정', href: '/Admin-Config', icon: CogIcon, current: false },
 ]
 
+const selectList = [
+  {userId: "아이디"},
+  {userName: "이름"},
+  {userMbl: "휴대폰번호"}
+];
+{/*<select*/}
+{/*  className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"*/}
+{/*>*/}
+{/*  <option value="userId">아이디</option>*/}
+{/*  <option value="userName">이름</option>*/}
+{/*  <option value="userMbl">휴대폰번호</option>*/}
+{/*</select>*/}
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function AdminMemberList(userId) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selected, setSelected] = useState("");
   const searchParam = fn.useInput("");
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+  };
 
   const queryList = () => {
     let param = {
@@ -52,7 +71,7 @@ export default function AdminMemberList(userId) {
     fn.requestApi(
         'get',
         adminUrl.GET_USER_LIST,
-        JSON.stringify(param)
+        param
         //fn.getJsonFromForm(document.querySelector('#frmJoin'))
         //{"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
     ).then(res => {
@@ -236,12 +255,20 @@ export default function AdminMemberList(userId) {
                 <div className="justify-center w-full sm:justify-between sm:flex">
                     <div className="flex">
                       <span>
-                            <select
-                              className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                            >
-                              <option value="userId">아이디</option>
-                              <option value="userName">이름</option>
-                              <option value="userMbl">휴대폰번호</option>
+                            {/*<select*/}
+                            {/*  className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"*/}
+                            {/*>*/}
+                            {/*  <option value="userId">아이디</option>*/}
+                            {/*  <option value="userName">이름</option>*/}
+                            {/*  <option value="userMbl">휴대폰번호</option>*/}
+                            {/*</select>*/}
+                            <select onChange={handleSelect} value={selected}
+                              className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                              {selectList.map((k) => (
+                                  <option value={k} key={k}>
+                                    {selectList[k]}
+                                  </option>
+                              ))}
                             </select>
                       </span>
                       <span>
