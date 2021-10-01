@@ -5,6 +5,9 @@ import {useState} from "react";
 
 const SweetAlert = withReactContent(Swal);
 
+/**
+ *
+ */
 axios.interceptors.request.use(function(config) {
 	Swal.fire({
 		title: 'Please Wait ...',
@@ -16,12 +19,15 @@ axios.interceptors.request.use(function(config) {
 	return config;
 }, error => {
 	Swal.close();
-	console.log("ERROR :: request loading finished!!!");
+	console.log("ERROR :: request loading finished!!!", error);
 	return Promise.reject(error);
 });
 
+/**
+ *
+ */
 axios.interceptors.response.use(function(response) {
-	Swal.close();
+//	Swal.close();
 	return Promise.resolve(response);
 }, error => {
 	Swal.close();
@@ -30,55 +36,37 @@ axios.interceptors.response.use(function(response) {
 });
 
 const fn_cmm = {
-	requestApi: async (method, url, data, headers) => {
-		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
+	/**
+	 *
+	 * @param methodType
+	 * @param url
+	 * @param params
+	 * @param headers
+	 * @returns {Promise<*>}
+	 */
+	requestApi: async (methodType, url, params, headers) => {
 		console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
-		console.table(data)
+		console.table(params)
+
+		headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
+		let options = {
+			url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
+			method: methodType,
+			headers: headers,
+			// proxy cors : true, 운영은 false
+			withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
+			timeout: 100000
+		};
+		// get 요청은 body 없이 call
+		if(methodType === 'get' || methodType === 'GET') 	options = {...options, params};
+		else                                                options = {...options, data: params};
+
+		// 요청 처리
+		let res = null;
 		try {
-			// let options = {
-			// 	url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
-			// 	method: method,
-			// 	headers: headers,
-			// 	// proxy cors : true, 운영은 false
-			// 	withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-			// };
-			// if(method.toLowerCase() === 'post') 	options.data = data;
-			// else
-			const res = await axios({
-				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
-				url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
-				method: method,
-				data: data,
-				headers: headers,
-				// proxy cors : true, 운영은 false
-				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-				timeout: 100000
-			}).then();
-			if (res.status === 200 && res.data.success) {
-				console.log(JSON.stringify(res.data));
-				await SweetAlert.fire({
-					title: `Inpix Administrator`,
-					html: `처리되었습니다`,
-					//footer: 'Copyright 2018',
-					timer: 500
-				})
-				return res.data;
-			} else {
-				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
-				let code = res.data.code != null? `[${res.data.code}]`: "";
-				let message = res.data.message;
-
-				await SweetAlert.fire({
-					title: `Inpix Administrator`,
-					html: `<p>${message} ${code}</p>`,
-					//footer: 'Copyright 2018',
-					timer: 3000
-				});
-			}
-			return res.data;
-
+			res = await axios(options); //{...config, ...options});//.then(res => {
 		} catch (e) {
-			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
+			console.log(`@@@@@@@@@@@ requestApi EXCEPTION @@@@@@@@@@@@@`);
 			await SweetAlert.fire({
 				//title: `Error`,
 				icon: 'error',
@@ -90,52 +78,27 @@ const fn_cmm = {
 		} finally {
 
 		}
+		if (res.status === 200 && res.data.success) {
+			console.log(JSON.stringify(res.data));
+			await SweetAlert.fire({
+				title: `Inpix Administrator`,
+				html: `처리되었습니다`,
+				//footer: 'Copyright 2018',
+				timer: 500
+			});
+
+		} else {
+			console.log(`@@@@@@@@@@@ requestApi ERROR @@@@@@@@@@@@@`);
+			let code = res.data.code != null ? `[${res.data.code}]` : "";
+			await SweetAlert.fire({
+				title: `Inpix Administrator`,
+				html: `<p>${res.data.message} ${code}</p>`,
+				//footer: 'Copyright 2018',
+				timer: 3000
+			});
+		}
+		return res.data;
 	},
-
-
-	// RequestApi: (method, url, data, callback, headers) => {
-	// 	const [payload, setPayload] = useState(null);
-	// 	const [loading, setLoading] = useState(true);
-	// 	const [error, setError] = useState("");
-	//
-	// 	const CallUrl = async () => {
-	// 		try {
-	// 			headers = Object.assign({"Content-Type": "application/json;charset=UTF-8"}, headers);  //, "Authorization": session.get('token')};
-	// 			console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
-	// 			const {res} = await axios({
-	// 				// package.json 의 proxy 설정시 도메인을 제외해야만 proxy 적용됨
-	// 				url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
-	// 				method,
-	// 				data,
-	// 				headers,
-	// 				// proxy cors : true, 운영은 false
-	// 				withCredentials: process.env.NODE_ENV === 'development',   // 개발시만 사용 : crossdomain
-	// 			});
-	// 			if (res.status === 200 && res.data.success) {
-	// 				console.log(JSON.stringify(res.data));
-	// 				callback(setPayload(res.data));
-	// 			} else {
-	// 				console.log(`@@@@@@@@@@@ ERROR @@@@@@@@@@@@@`);
-	// 				alert(`Error:${res.data.message}res.data.code?[${res.data.code}]:''`);
-	// 				callback(res.data);
-	// 			}
-	// 			setPayload(res);
-	//
-	// 		} catch (e) {
-	// 			console.log(`@@@@@@@@@@@ EXCEPTION ERROR @@@@@@@@@@@@@`);
-	// 			alert(e)
-	// 			setError(e);
-	// 		} finally {
-	// 			setLoading(false);
-	// 		}
-	// 	}
-	// 	useEffect(() => {
-	// 		const {payload, loading, error} = CallUrl();
-	// 		//CallUrl();
-	// 	}, [])
-	// 	//return {payload, loading, error};
-	//
-	// },
 
 	/**
 	 *
@@ -149,7 +112,6 @@ const fn_cmm = {
 		}
 		return {value, onChange};
 	},
-
 
 	/**
 	 * form 데이타를 JSON 으로 return
@@ -165,13 +127,19 @@ const fn_cmm = {
 		return JSON.stringify(result)
 	},
 
+	/**
+	 *
+	 * @param message
+	 * @param title
+	 * @returns {Promise<SweetAlertResult<any>>}
+	 */
 	alertMessage: async (message, title = '관리자 시스템') => {
 		return await SweetAlert.fire({
 			title: `<p>${title}</p>`,
 			html: `<p>${message}</p>`,
 			footer: 'Copyright 2018',
 			timer: 1500
-		}).then(res => res)
+		}).then(r => r);
 	},
 
 	confirmMessage: async(message = '진행 하시겠습니까?', title = '관리자 시스템') => {
@@ -184,27 +152,7 @@ const fn_cmm = {
 			cancelButtonText: "아니오",
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			//confirmButtonClass: 'btn btn-success',
-			//cancelButtonClass: 'btn btn-danger',
-			//buttonsStyling: false
-		}).then(r =>
-			r.isConfirmed
-			// if(r.isConfirmed) {
-			// 	Swal.fire(
-			// 		`<p>${title}</p>`,
-			// 		'처리되었습니다',
-			// 		'success'
-			// 	)
-			// }
-			// if(r.isDismissed) {
-			// 	Swal.fire(
-			// 		`<p>${title}</p>`,
-			// 		'취소했습니다',
-			// 		'info'
-			// 	)
-			// }
-
-		);
+		}).then(r => r.isConfirmed);
 	},
 
 	/**
