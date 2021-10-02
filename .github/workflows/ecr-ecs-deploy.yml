@@ -9,7 +9,7 @@ on:
 name: Deploy to Amazon ECS
 
 jobs:
-  deploy:
+  build:
     name: Deploy
     runs-on: ubuntu-latest
 
@@ -41,3 +41,38 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # Pushing image to ECR
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on:
+      - self-hosted
+      - label-development
+    steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: hj719310!
+        - name: Docker run
+          run: |
+            docker ps -q --filter "name=$ECR_REGISTRY/$ECR_REPOSITORY" | grep -q . && docker stop $ECR_REGISTRY/$ECR_REPOSITORY && docker rm -fv $ECR_REGISTRY/$ECR_REPOSITORY
+            docker run -d -p 8080:8080 --name cicd --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+
+#    - name: Fill in the new image ID in the Amazon ECS task definition
+#      id: task-def
+#      uses: aws-actions/amazon-ecs-render-task-definition@v1
+#      with:
+#        task-definition: task-definition.json
+#        container-name: 컨테이너이름
+#        image: ${{ steps.build-image.outputs.image }}
+#      - name: Deploy Amazon ECS task definition
+#      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#      with:
+#        task-definition: ${{ steps.task-def.outputs.task-definition }}
+#        # 서비스이름
+#        service: 서비스이름
+#        # 클러스터이름
+#        cluster: ecs-ec2-seoul
+#        wait-for-service-stability: true
