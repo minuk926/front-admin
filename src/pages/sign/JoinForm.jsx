@@ -28,7 +28,7 @@ export default function JoinForm() {
 		e.preventDefault();
 
 		if(!idCheck()) return false;
-		if(!userName){
+		if(!userName.value){
 			document.querySelector('#userName').focus();
 			return false;
 		}
@@ -36,7 +36,7 @@ export default function JoinForm() {
 		if(!moblieCheck())	return false;
 
 		//console.log(`password=[${password}], password2=[${password2}]`)
-		if(userPswd !== userPswd2) {
+		if(userPswd.value !== userPswd2.value) {
 			fn.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
 				.then();
 			document.querySelector('#userPswd2').focus();
@@ -65,7 +65,7 @@ export default function JoinForm() {
 	function idCheck(e){
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9a-zA-Z]{6,20}$/;
-		if(!regExpId.test(userId)){
+		if(!regExpId.test(userId.value)){
 			document.querySelector('#spanIdValid').style = 'display';
 			document.querySelector('#userId').focus();
 			return false;
@@ -77,8 +77,9 @@ export default function JoinForm() {
 
 	function moblieCheck(){
 		// 숫자, 영문만 입력 가능
-		const regExpId = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
-		if(!regExpId.test(userMbl)){
+debugger
+		const regExpId = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
+		if(!regExpId.test(userMbl.value)){
 			document.querySelector('#spanTelValid').style = 'display';
 			document.querySelector('#userMbl').focus();
 			return false;
@@ -90,9 +91,9 @@ export default function JoinForm() {
 
 	function passwordCheck(){
 		// 숫자, 영문만 입력 가능
-		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{6,50}$/;
+		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{6,20}$/;
 
-		if(!regExpId.test(userPswd)){
+		if(!regExpId.test(userPswd.value)){
 			document.querySelector('#spanPasswordValid').style = 'display';
 			document.querySelector('#userPswd').focus();
 			return false;
@@ -100,12 +101,12 @@ export default function JoinForm() {
 			document.querySelector('#spanPasswordValid').style['display'] = 'none';
 		}
 
-		if(/(\w)\1\1\1/.test(userPswd)){
+		if(/(\w)\1\1\1/.test(userPswd.value)){
 			fn.alertMessage('같은 문자를 4번 이상 사용하실 수 없습니다.', '회원가입').then();
 			return false;
 		}
 
-		if(userPswd.search(userId) > -1){
+		if(userPswd.value.search(userId.value) > -1){
 			fn.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}
