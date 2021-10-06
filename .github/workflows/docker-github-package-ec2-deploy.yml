@@ -65,5 +65,5 @@ jobs:
           docker ps -q --filter "name=inpix-admin-fo" | grep -q . && docker stop inpix-admin-fo && docker rm -fv inpix-admin-fo
           docker run -d -p 80:80 --name inpix-admin-fo --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
           sleep 5
-          docker image prune -a
+          docker image prune -a -f
           sleep 5
