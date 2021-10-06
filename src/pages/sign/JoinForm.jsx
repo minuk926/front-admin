@@ -27,25 +27,25 @@ export default function JoinForm() {
 	const saveJoin = (e) => {
 		e.preventDefault();
 
-		if(!idCheck()) return false;
-		if(!userName){
+		if (!idCheck()) return false;
+		if (!userName) {
 			document.querySelector('#userName').focus();
 			return false;
 		}
-		if(!passwordCheck()) return false;
-		if(!moblieCheck())	return false;
+		if (!passwordCheck()) return false;
+		if (!moblieCheck()) return false;
 
 		//console.log(`password=[${password}], password2=[${password2}]`)
-		if(userPswd !== userPswd2) {
+		if (userPswd !== userPswd2) {
 			fn.alertMessage('비밀번호와 비밀번호확인은 같아야 합니다.', '회원가입')
 				.then();
 			document.querySelector('#userPswd2').focus();
 			return false;
 		}
 
-		fn.confirmMessage( '회원 가입 하시겠습니까?', '회원가입')
+		fn.confirmMessage('회원 가입 하시겠습니까?', '회원가입')
 			.then(isOk => {
-				if(isOk){
+				if (isOk) {
 					fn.requestApi(
 						'post',
 						adminUrl.JOIN,
@@ -62,50 +62,50 @@ export default function JoinForm() {
 			});
 	}
 
-	function idCheck(e){
+	function idCheck(e) {
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9a-zA-Z]{6,20}$/;
-		if(!regExpId.test(userId)){
+		if (!regExpId.test(userId)) {
 			document.querySelector('#spanIdValid').style = 'display';
 			document.querySelector('#userId').focus();
 			return false;
-		}else{
+		} else {
 			document.querySelector('#spanIdValid').style['display'] = 'none';
 		}
 		return true;
 	}
 
-	function moblieCheck(){
+	function moblieCheck() {
 		// 숫자, 영문만 입력 가능
 		const regExpId = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
-		if(!regExpId.test(userMbl)){
+		if (!regExpId.test(userMbl)) {
 			document.querySelector('#spanTelValid').style = 'display';
 			document.querySelector('#userMbl').focus();
 			return false;
-		}else{
+		} else {
 			document.querySelector('#spanTelValid').style['display'] = 'none';
 		}
 		return true;
 	}
 
-	function passwordCheck(){
+	function passwordCheck() {
 		// 숫자, 영문만 입력 가능
 		const regExpId = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{6,50}$/;
 
-		if(!regExpId.test(userPswd)){
+		if (!regExpId.test(userPswd)) {
 			document.querySelector('#spanPasswordValid').style = 'display';
 			document.querySelector('#userPswd').focus();
 			return false;
-		}else{
+		} else {
 			document.querySelector('#spanPasswordValid').style['display'] = 'none';
 		}
 
-		if(/(\w)\1\1\1/.test(userPswd)){
+		if (/(\w)\1\1\1/.test(userPswd)) {
 			fn.alertMessage('같은 문자를 4번 이상 사용하실 수 없습니다.', '회원가입').then();
 			return false;
 		}
 
-		if(userPswd.search(userId) > -1){
+		if (userPswd.search(userId) > -1) {
 			fn.alertMessage('비밀번호에 아이디가 포함되었습니다.', '회원가입').then();
 			return false;
 		}
@@ -246,7 +246,7 @@ export default function JoinForm() {
 							<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
 						</Transition.Child>
 
-						 This element is to trick the browser into centering the modal contents.
+						This element is to trick the browser into centering the modal contents.
 						<span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
