@@ -11,7 +11,7 @@ COPY ./ ./
 RUN npm run build
 
 # 시작시 실행될 명령어
-#CMD ["node", "App.js"]
+#CMD ["node", "app.jsx"]
 
 FROM nginx as runner
 #COPY default.conf /etc/nginx/conf.d/default.conf

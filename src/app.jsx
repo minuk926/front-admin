@@ -1,4 +1,4 @@
-import './App.css';
+import './app.css';
 import RouteAdmin from "./route/RouteAdmin";
 
 function App() {
