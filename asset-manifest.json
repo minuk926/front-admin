@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/front-admin/static/css/main.4a8a1035.chunk.css",
+    "main.js": "/front-admin/static/js/main.d4252049.chunk.js",
+    "main.js.map": "/front-admin/static/js/main.d4252049.chunk.js.map",
+    "runtime-main.js": "/front-admin/static/js/runtime-main.b175e87c.js",
+    "runtime-main.js.map": "/front-admin/static/js/runtime-main.b175e87c.js.map",
+    "static/js/2.2743c2af.chunk.js": "/front-admin/static/js/2.2743c2af.chunk.js",
+    "static/js/2.2743c2af.chunk.js.map": "/front-admin/static/js/2.2743c2af.chunk.js.map",
+    "static/js/3.4be59dcb.chunk.js": "/front-admin/static/js/3.4be59dcb.chunk.js",
+    "static/js/3.4be59dcb.chunk.js.map": "/front-admin/static/js/3.4be59dcb.chunk.js.map",
+    "index.html": "/front-admin/index.html",
+    "static/css/main.4a8a1035.chunk.css.map": "/front-admin/static/css/main.4a8a1035.chunk.css.map",
+    "static/js/2.2743c2af.chunk.js.LICENSE.txt": "/front-admin/static/js/2.2743c2af.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b175e87c.js",
+    "static/js/2.2743c2af.chunk.js",
+    "static/css/main.4a8a1035.chunk.css",
+    "static/js/main.d4252049.chunk.js"
+  ]
+}

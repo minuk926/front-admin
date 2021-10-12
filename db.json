@@ -1,0 +1,14 @@
+ [
+	{
+		"userId": 1,
+		"userPed": "1qaz2wsx",
+		"userNm": "Lee",
+		"role": "developer"
+	},
+	{
+		"userId": 2,
+		"userPed": "1qaz2wsx",
+		"userNm": "Kim",
+		"role": "designer"
+	}
+]
