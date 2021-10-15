@@ -1,10 +1,10 @@
-import './app.css';
+import "./app.css";
 import RouteAdmin from "./route/RouteAdmin";
 
 function App() {
   return (
     <div className="App">
-      <RouteAdmin/>
+      <RouteAdmin />
     </div>
   );
 }
