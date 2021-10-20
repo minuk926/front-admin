@@ -16,6 +16,7 @@ const Pagenator = ({ paginator }) => {
         <div>
           <nav id="paginator" className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             {pages.map((page, idx) => {
+              console.log(idx);
               const addPageTag = [];
 
               if (idx === 0) {
