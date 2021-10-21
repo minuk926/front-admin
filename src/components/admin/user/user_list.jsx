@@ -3,7 +3,6 @@ import User from './user';
 import UserListHeader from './user_list_header';
 
 const UserList = ({ users }) => {
-  console.log(users);
   return (
     <>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

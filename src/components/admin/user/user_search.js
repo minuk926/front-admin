@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CheckIcon, PencilIcon, SearchIcon, TrashIcon } from '@heroicons/react/solid';
 
-const UserSearch = () => {
+const UserSearch = ({ onSearch }) => {
+  const serachSelectRef = useRef('');
+  const serachInputRef = useRef('');
+
+  const queryList = () => {
+    onSearch({ [serachSelectRef.current.value]: serachInputRef.current.value });
+  };
+
   return (
     <div className="justify-center w-full sm:justify-between sm:flex">
       <div className="flex">
         <span>
-          <select className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+          <select
+            ref={serachSelectRef}
+            className="inline-flex items-center  px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          >
             <option value="userId">아이디</option>
             <option value="userName">이름</option>
             <option value="userMbl">휴대폰번호</option>
           </select>
         </span>
         <span>
-          <input className="inline-flex items-center w-40 px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+          <input
+            ref={serachInputRef}
+            className="inline-flex items-center w-40 px-2 py-2 mr-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          />
         </span>
         <span>
           <button
-            /*onClick={queryList}*/
+            onClick={queryList}
             type="button"
             className="inline-flex items-center px-2 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1  focus:ring-indigo-500"
           >

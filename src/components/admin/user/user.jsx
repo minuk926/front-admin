@@ -1,7 +1,6 @@
 import React from 'react';
 
 const User = ({ user }) => {
-  console.log(user);
   return (
     <tr className="hover:bg-gray-50">
       <td className="px-3 py-4 whitespace-nowrap">

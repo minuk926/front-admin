@@ -2,10 +2,14 @@ import React, { useEffect } from 'react';
 import _ from 'lodash';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
-const Pagenator = ({ paginator }) => {
-  console.log(paginator);
+const Pagenator = ({ paginator, onPaging }) => {
   const { totalCount, totalPages } = paginator;
   const pages = _.range(0, totalPages);
+
+  const handlePaging = e => {
+    const page = Number(e.target.text);
+    paginator.page !== page && onPaging(page);
+  };
 
   return (
     <div className="pt-3 items-center justify-between  border-t border-gray-200">
@@ -16,7 +20,6 @@ const Pagenator = ({ paginator }) => {
         <div>
           <nav id="paginator" className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             {pages.map((page, idx) => {
-              console.log(idx);
               const addPageTag = [];
 
               if (idx === 0) {
@@ -37,7 +40,11 @@ const Pagenator = ({ paginator }) => {
                 );
               } else {
                 addPageTag.push(
-                  <a href="#" className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border border-solid text-sm font-medium">
+                  <a
+                    href="#"
+                    onClick={handlePaging}
+                    className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border border-solid text-sm font-medium"
+                  >
                     {idx + 1}
                   </a>
                 );
