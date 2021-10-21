@@ -7,7 +7,14 @@ const Pagenator = ({ paginator, onPaging }) => {
   const pages = _.range(0, totalPages);
 
   const handlePaging = e => {
-    const page = Number(e.target.text);
+    let page = e.target.textContent;
+    console.log(page);
+    if (!page) {
+      if (e.target.id === 'next') page = paginator.page ? paginator.page + 1 : 1;
+      else if (e.target.id === 'prev') page = paginator.page ? paginator.page - 1 : 1;
+    } else {
+      page = Number(page);
+    }
     paginator.page !== page && onPaging(page);
   };
 
@@ -26,8 +33,10 @@ const Pagenator = ({ paginator, onPaging }) => {
                 if (paginator.hasPrePage) {
                   addPageTag.push(
                     <a href="#" className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                      <span className="sr-only">Previous</span>
-                      <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                      <span onClick={handlePaging} className="sr-only">
+                        Previous
+                      </span>
+                      <ChevronLeftIcon id="prev" className="h-5 w-5" aria-hidden="true" />
                     </a>
                   );
                 }
@@ -52,9 +61,13 @@ const Pagenator = ({ paginator, onPaging }) => {
               if (idx + 1 === totalPages) {
                 if (paginator.hasNextPage) {
                   addPageTag.push(
-                    <a href="#" className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <a
+                      href="#"
+                      onClick={handlePaging}
+                      className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    >
                       <span className="sr-only">Next</span>
-                      <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                      <ChevronRightIcon id="next" className="h-5 w-5" aria-hidden="true" />
                     </a>
                   );
                 }

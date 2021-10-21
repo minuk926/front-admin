@@ -41,6 +41,10 @@ const Index = () => {
   }, []);
 
   const handlePaging = page => {
+    setPaginator({
+      ...paginator,
+      page
+    });
     return fn
       .requestApi(
         //
@@ -50,7 +54,6 @@ const Index = () => {
       ) //
       .then(res => {
         res.data && setUsers(res.data);
-        res.paginator && setPaginator(res.paginator);
       });
   };
 
