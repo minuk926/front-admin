@@ -4,6 +4,13 @@ import withReactContent from 'sweetalert2-react-content';
 import { useState } from 'react';
 
 const SweetAlert = withReactContent(Swal);
+const client = axios.create({
+  baseURL: process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_API : '',
+  // proxy cors : true, 운영은 false
+  withCredentials: process.env.NODE_ENV === 'development', // 개발시만 사용 : crossdomain
+  timeout: 100000
+  //params: {key: key}
+});
 
 /**
  *
@@ -55,12 +62,13 @@ const fn_cmm = {
 
     headers = Object.assign({ 'Content-Type': 'application/json;charset=UTF-8' }, headers); //, "Authorization": session.get('token')};
     let options = {
-      url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
+      //url: process.env.NODE_ENV === 'development' ? url : process.env.REACT_APP_API + url,
+      url: url,
       method: methodType,
-      headers: headers,
+      headers: headers
       // proxy cors : true, 운영은 false
-      withCredentials: process.env.NODE_ENV === 'development', // 개발시만 사용 : crossdomain
-      timeout: 100000
+      // withCredentials: process.env.NODE_ENV === 'development', // 개발시만 사용 : crossdomain
+      // timeout: 100000
     };
     // get 요청은 body 없이 call
     if (methodType === 'get' || methodType === 'GET') options = { ...options, params };
@@ -69,7 +77,7 @@ const fn_cmm = {
     // 요청 처리
     let res = null;
     try {
-      res = await axios(options); //{...config, ...options});//.then(res => {
+      res = await client(options); //{...config, ...options});//.then(res => {
     } catch (e) {
       console.log(`@@@@@@@@@@@ requestApi EXCEPTION @@@@@@@@@@@@@`);
       await SweetAlert.fire({
